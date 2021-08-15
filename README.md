@@ -3,14 +3,14 @@
 
 ## Services that are going to be needed:
 
-Payment
-Analytics
-Data Base
+- Payment
+- Analytics
+- Data Base
 
-## Functionality needed
+## Functionality needed: 
 
-Authentication
-User Profile
-Shopping Car
+- Authentication
+- User Profile
+- Shopping Car
 
 
