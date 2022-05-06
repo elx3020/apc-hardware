@@ -1,23 +1,15 @@
 {
   "files": {
-    "main.css": "/apc-hardware/static/css/main.a617e044.chunk.css",
-    "main.js": "/apc-hardware/static/js/main.c73a906c.chunk.js",
-    "main.js.map": "/apc-hardware/static/js/main.c73a906c.chunk.js.map",
-    "runtime-main.js": "/apc-hardware/static/js/runtime-main.4950d2d6.js",
-    "runtime-main.js.map": "/apc-hardware/static/js/runtime-main.4950d2d6.js.map",
-    "static/js/2.23bea84f.chunk.js": "/apc-hardware/static/js/2.23bea84f.chunk.js",
-    "static/js/2.23bea84f.chunk.js.map": "/apc-hardware/static/js/2.23bea84f.chunk.js.map",
-    "static/js/3.4bcdda78.chunk.js": "/apc-hardware/static/js/3.4bcdda78.chunk.js",
-    "static/js/3.4bcdda78.chunk.js.map": "/apc-hardware/static/js/3.4bcdda78.chunk.js.map",
+    "main.css": "/apc-hardware/static/css/main.e6c13ad2.css",
+    "main.js": "/apc-hardware/static/js/main.607cd419.js",
+    "static/js/787.2dd7cb03.chunk.js": "/apc-hardware/static/js/787.2dd7cb03.chunk.js",
     "index.html": "/apc-hardware/index.html",
-    "static/css/main.a617e044.chunk.css.map": "/apc-hardware/static/css/main.a617e044.chunk.css.map",
-    "static/js/2.23bea84f.chunk.js.LICENSE.txt": "/apc-hardware/static/js/2.23bea84f.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/apc-hardware/static/media/logo.6ce24c58.svg"
+    "main.e6c13ad2.css.map": "/apc-hardware/static/css/main.e6c13ad2.css.map",
+    "main.607cd419.js.map": "/apc-hardware/static/js/main.607cd419.js.map",
+    "787.2dd7cb03.chunk.js.map": "/apc-hardware/static/js/787.2dd7cb03.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.4950d2d6.js",
-    "static/js/2.23bea84f.chunk.js",
-    "static/css/main.a617e044.chunk.css",
-    "static/js/main.c73a906c.chunk.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.607cd419.js"
   ]
 }
