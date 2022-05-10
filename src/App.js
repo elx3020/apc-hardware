@@ -1,5 +1,3 @@
-import "./App.css";
-
 // react router
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Fragment } from "react";
@@ -28,6 +26,9 @@ import Page404 from "./pages/Page404/Page404";
 import { Provider } from "react-redux";
 import store from "./Redux/store";
 
+// stlyes bootstrap
+import "./App.scss";
+
 function App() {
   // authentication and creation of the redux store
 
@@ -41,7 +42,7 @@ function App() {
         <Router>
           <NavBar />
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/apc-hardware">
               <HomePage />
             </Route>
             <Route path="/contacto">
