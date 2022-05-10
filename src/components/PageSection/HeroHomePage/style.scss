@@ -1,0 +1,24 @@
+.hero-flex {
+  display: flex;
+  margin: 7% 0 4% 0;
+  column-gap: 1%;
+}
+
+.hero-wrapper {
+  background-color: white;
+  padding: 1.5%;
+  height: 70vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.card {
+  &.card-rec {
+    border: none;
+    padding: 0.3%;
+  }
+
+  .card-link {
+    line-height: 115%;
+  }
+}
