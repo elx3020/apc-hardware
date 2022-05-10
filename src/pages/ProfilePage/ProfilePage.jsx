@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import PageMarker from "../../components/layout/PageFiller/PageMarker";
+
 export const ProfilePage = (props) => {
-  return <div>ProfilePage</div>;
+  return (
+    <div>
+      <PageMarker pageName="ProfilePage" />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({});

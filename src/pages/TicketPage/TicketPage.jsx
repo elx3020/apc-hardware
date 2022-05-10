@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import PageMarker from "../../components/layout/PageFiller/PageMarker";
+
 export const TicketPage = (props) => {
-  return <div>TicketPage</div>;
+  return (
+    <div>
+      <PageMarker pageName="TicketPage" />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({});
