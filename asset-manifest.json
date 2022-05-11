@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/apc-hardware/static/css/main.c4a9e2c2.css",
-    "main.js": "/apc-hardware/static/js/main.63e6ecb1.js",
+    "main.css": "/apc-hardware/static/css/main.9ca8b709.css",
+    "main.js": "/apc-hardware/static/js/main.77b61c1e.js",
     "static/js/787.2dd7cb03.chunk.js": "/apc-hardware/static/js/787.2dd7cb03.chunk.js",
     "index.html": "/apc-hardware/index.html",
-    "main.c4a9e2c2.css.map": "/apc-hardware/static/css/main.c4a9e2c2.css.map",
-    "main.63e6ecb1.js.map": "/apc-hardware/static/js/main.63e6ecb1.js.map",
+    "main.9ca8b709.css.map": "/apc-hardware/static/css/main.9ca8b709.css.map",
+    "main.77b61c1e.js.map": "/apc-hardware/static/js/main.77b61c1e.js.map",
     "787.2dd7cb03.chunk.js.map": "/apc-hardware/static/js/787.2dd7cb03.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c4a9e2c2.css",
-    "static/js/main.63e6ecb1.js"
+    "static/css/main.9ca8b709.css",
+    "static/js/main.77b61c1e.js"
   ]
 }
