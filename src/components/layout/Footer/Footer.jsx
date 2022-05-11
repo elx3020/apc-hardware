@@ -5,6 +5,9 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 function Footer() {
   return (
     <div style={{ backgroundColor: "black", padding: "5% 0", color: "white" }}>
@@ -28,13 +31,22 @@ function Footer() {
           <Col xs={{ order: 12 }}>
             <div>
               <h3>Suscribete:</h3>
-              <form>
-                <label htmlFor="email">E-mail</label>
-                <input type="email" name="email" />
-                <label htmlFor="name">Name</label>
-                <input type="text" name="name" />
-                <input type="submit" />
-              </form>
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Text className="text-muted">
+                    We'll never share your email with anyone else.
+                  </Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" placeholder="Password" />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Enviar
+                </Button>
+              </Form>
             </div>
           </Col>
           <Col xs={{ order: 1 }}>
