@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Card from "react-bootstrap/Card";
 
 export const ProductComponent = (props) => {
-  const { title, src, description, id } = props;
+  const { title, src, description, id, rating } = props;
 
   const history = useHistory();
 
@@ -20,6 +20,7 @@ export const ProductComponent = (props) => {
       <Card.Img src={src} alt={src} variant="top" />
 
       <Card.Title>{title}</Card.Title>
+      <div>{rating}</div>
       <Card.Link onClick={handleClick}>{description}</Card.Link>
     </Card>
   );

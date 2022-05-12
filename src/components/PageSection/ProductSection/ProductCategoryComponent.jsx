@@ -4,22 +4,23 @@ import { connect } from "react-redux";
 import ProductComponent from "./ProductComponent";
 import CardGroup from "react-bootstrap/CardGroup";
 
-import fakeImg from "../../../images/logo192.png";
-
 import "./style.scss";
 
 export const ProductCategoryComponent = (props) => {
-  const { category } = props;
+  const { category, data } = props;
+
+  console.log(data);
 
   const fakeData = [1, 2, 3, 4, 5];
 
-  const products = fakeData.map((item, index) => {
+  const products = data.map((item, index) => {
     return (
       <ProductComponent
         id={index}
-        title="Product"
-        src={fakeImg}
-        description="Some text to fill out the card of the product"
+        title={item.title}
+        src={item.img}
+        description={item.linkDescription}
+        rating="5 stars"
       />
     );
   });
