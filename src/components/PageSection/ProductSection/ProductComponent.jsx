@@ -16,12 +16,15 @@ export const ProductComponent = (props) => {
   }
 
   return (
-    <Card style={{ border: "none", padding: "0 1%" }}>
+    <Card
+      style={{ border: "none", padding: "0 1%", cursor: "pointer" }}
+      onClick={handleClick}
+    >
       <Card.Img src={src} alt={src} variant="top" />
 
       <Card.Title>{title}</Card.Title>
       <div>{rating}</div>
-      <Card.Link onClick={handleClick}>{description}</Card.Link>
+      <Card.Link>{description}</Card.Link>
     </Card>
   );
 };

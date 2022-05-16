@@ -13,6 +13,7 @@ const productItem = {
 };
 
 const productDescription = {
+  productId: 99,
   images: ["src1", "src2", "src3"],
   title: "FakeProduct",
   rating: "rating",
@@ -42,7 +43,7 @@ export default function (state = intialState, action) {
     case GET_PRODUCT:
       return {
         ...state,
-        product: action.payload,
+        // product: action.payload,
         loading: false,
       };
     case LOADING_PRODUCTS:

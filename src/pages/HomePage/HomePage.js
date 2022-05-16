@@ -11,17 +11,17 @@ import ProductCategoryComponent from "../../components/PageSection/ProductSectio
 import { Container } from "react-bootstrap";
 
 export const HomePage = (props) => {
-  const { loading } = props.ui;
-
   const products = props.products;
 
+  const { loading } = props;
+
   useEffect(() => {
-    props.setLoading();
     props.getProducts();
-    console.log(products);
   }, []);
 
-  return (
+  const pageContent = loading ? (
+    <h1>Loading Page..</h1>
+  ) : (
     <div>
       <Container style={{ maxWidth: "80%" }}>
         <HeroHomePage />
@@ -31,11 +31,14 @@ export const HomePage = (props) => {
       </Container>
     </div>
   );
+
+  return <div>{pageContent}</div>;
 };
 
 const mapStateToProps = (state) => ({
   ui: state.ui,
   products: state.data.products,
+  loading: state.data.loading,
 });
 
 const mapDispatchToProps = {

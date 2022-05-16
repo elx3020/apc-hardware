@@ -9,9 +9,10 @@ import "./style.scss";
 export const ProductCategoryComponent = (props) => {
   const { category, data } = props;
 
-  console.log(data);
+  // get data from the prop data
 
-  const fakeData = [1, 2, 3, 4, 5];
+  // component needs to know type of user and api end point
+  // it will be better if the component itself call the database to retrive the products base on parameters like category, popularity in that category,
 
   const products = data.map((item, index) => {
     return (
