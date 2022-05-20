@@ -39,7 +39,7 @@ const ContactPage = (props) => {
             height="450"
             loading="lazy"
             allowfullscreen
-            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJS3La6k-F1ZER7RJ9KbBWrzc&key=AIzaSyAKkJjPTPBXUrUZsdrHq7NYD262pHhtqr8"
+            src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJS3La6k-F1ZER7RJ9KbBWrzc&key="
           ></iframe>
         </Container>
       </section>
