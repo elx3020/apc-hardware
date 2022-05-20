@@ -42,7 +42,7 @@ function App() {
         <Router>
           <NavBar />
           <Switch>
-            <Route exact path="/apc-hardware">
+            <Route exact path="/">
               <HomePage />
             </Route>
             <Route path="/contacto">
