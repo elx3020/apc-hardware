@@ -18,6 +18,7 @@ export const ProductCategoryComponent = (props) => {
     return (
       <ProductComponent
         id={index}
+        key={index}
         title={item.title}
         src={item.img}
         description={item.linkDescription}

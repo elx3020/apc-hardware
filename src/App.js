@@ -5,7 +5,7 @@ import { Fragment } from "react";
 // components
 import NavBar from "./components/layout/NavBar/NavBar";
 import Footer from "./components/layout/Footer/Footer";
-
+import AuthRoute from "./components/UserControl/AuthRoute";
 // pages
 import HomePage from "./pages/HomePage/HomePage";
 import ContactPage from "./pages/ContactPage/ContactPage";
@@ -29,9 +29,14 @@ import store from "./Redux/store";
 // stlyes bootstrap
 import "./App.scss";
 
-function App() {
-  // authentication and creation of the redux store
+// aws authentication
+import { useAuthenticator } from "@aws-amplify/ui-react";
 
+function App() {
+  // authentication
+  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+
+  console.log(authStatus);
   // if (token) {
 
   // }
@@ -42,9 +47,8 @@ function App() {
         <Router>
           <NavBar />
           <Switch>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
+            <Route exact path="/" component={HomePage} />
+
             <Route path="/contacto">
               <ContactPage />
             </Route>
@@ -52,9 +56,11 @@ function App() {
               <LoginPage />
             </Route>
 
-            <Route path="/:user/carrito">
-              <CartPage />
-            </Route>
+            <AuthRoute
+              path="/:user/carrito"
+              authenticated={authStatus}
+              component={CartPage}
+            />
             <Route path="/:user/orders">
               <OrderPage />
             </Route>

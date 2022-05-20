@@ -36,7 +36,6 @@ export const setLoading = () => (dispatch) => {
 export const getProducts = () => (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
   dispatch({ type: GET_PRODUCTS });
-  console.log("homepage");
 };
 
 export const getProduct = () => (dispatch) => {

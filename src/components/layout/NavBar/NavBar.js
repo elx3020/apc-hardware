@@ -17,7 +17,7 @@ const NavBar = (props) => {
     <Navbar className="navbar" bg="dark" variant="dark" expand="lg">
       <Container className="flex-column">
         <div className="first-row">
-          <Navbar.Brand as={Link} to="/apc-hardware">
+          <Navbar.Brand as={Link} to="/">
             APC-Hardware
           </Navbar.Brand>
 
