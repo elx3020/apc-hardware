@@ -10,6 +10,12 @@
       "StackName": "amplify-apchardware-dev-75827",
       "StackId": "arn:aws:cloudformation:sa-east-1:675923905285:stack/amplify-apchardware-dev-75827/0ad6e920-d8cb-11ec-8498-0674df2171c0",
       "AmplifyAppId": "d2t5z9ne7k8d00"
+    },
+    "categories": {
+      "auth": {
+        "apchardwared39ae4c1": {},
+        "true": {}
+      }
     }
   }
 }

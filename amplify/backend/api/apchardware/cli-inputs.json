@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "apchardware",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "E:\\Projects\\Programming\\Web-Development\\Projects\\apc-hardware\\amplify\\backend\\api\\apchardware\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authapchardwared39ae4c1"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2023-05-21T06:18:47.299Z",
+        "keyDescription": "Guest User Access to products"
+      }
+    ]
+  }
+}

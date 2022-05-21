@@ -17,7 +17,7 @@ ReactDOM.render(
       <App />
     </Authenticator.Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("apc-root")
 );
 
 // If you want to start measuring performance in your app, pass a function
