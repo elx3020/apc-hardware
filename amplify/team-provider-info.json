@@ -15,6 +15,16 @@
       "auth": {
         "apchardwared39ae4c1": {},
         "true": {}
+      },
+      "function": {
+        "processPayment": {
+          "deploymentBucketName": "amplify-apchardware-dev-75827-deployment",
+          "s3Key": "amplify-builds/processPayment-6d6746307a46307a3849-build.zip"
+        },
+        "createOrder": {
+          "deploymentBucketName": "amplify-apchardware-dev-75827-deployment",
+          "s3Key": "amplify-builds/createOrder-4c7139465857726b6f6e-build.zip"
+        }
       }
     }
   }

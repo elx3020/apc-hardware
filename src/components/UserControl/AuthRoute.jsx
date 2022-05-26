@@ -7,7 +7,7 @@ function AuthRoute({ component: Component, authenticated, ...rest }) {
       {...rest}
       render={(props) =>
         authenticated !== "authenticated" ? (
-          <Redirect to="/" />
+          <Redirect to="/iniciar-sesion" />
         ) : (
           <Component {...props} />
         )

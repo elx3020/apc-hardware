@@ -10,6 +10,8 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "./style.scss";
 
+import logo from "../../images/apc_logo.png";
+
 import {
   Heading,
   useTheme,
@@ -19,6 +21,7 @@ import {
   useAuthenticator,
 } from "@aws-amplify/ui-react";
 
+// old form maybe I wont needed
 const oldForm = (
   <div className="center-flex">
     <div className="login-card">
@@ -53,11 +56,13 @@ const components = {
     const { tokens } = useTheme();
 
     return (
-      <View textAlign="center" padding={tokens.space.large}>
-        <Image
-          alt="Amplify logo"
-          src="https://docs.amplify.aws/assets/logo-dark.svg"
-        />
+      <View
+        textAlign="center"
+        padding={tokens.space.large}
+        maxWidth="250px"
+        margin="auto"
+      >
+        <Image alt="Amplify logo" src={logo} />
       </View>
     );
   },
@@ -231,17 +236,14 @@ const formFields = {
     },
   },
   signUp: {
+    email: {},
+
     password: {
-      labelHidden: false,
-      label: "Contraseña",
       placeholder: "Contraseña",
       isRequired: false,
-      order: 2,
     },
     confirm_password: {
-      labelHidden: false,
-      label: "Confirmar Contraseña",
-      order: 1,
+      placeholder: "Confirmar Contraseña",
     },
   },
   forceNewPassword: {

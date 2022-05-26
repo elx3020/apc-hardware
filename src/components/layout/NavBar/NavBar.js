@@ -13,7 +13,9 @@ import { NavItem } from "react-bootstrap";
 import "./style.scss";
 
 const NavBar = (props) => {
-  return (
+  const { authenticated } = props;
+
+  const guestNavBarContent = (
     <Navbar className="navbar" bg="dark" variant="dark" expand="lg">
       <Container className="flex-column">
         <div className="first-row">
@@ -31,20 +33,9 @@ const NavBar = (props) => {
             <Button variant="outline-success">Buscar</Button>
           </Form>
           <Nav className="justify-content-end">
-            <NavDropdown title="Iniciar Sesion">
-              <NavDropdown.Item as={Link} to="/iniciar-sesion">
-                Iniciar Sesion
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/profile/testUser">
-                Perfil
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/testUser/orders">
-                Ordenes
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/testUser/tickets">
-                Tickets
-              </NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link as={Link} to="/iniciar-sesion">
+              Iniciar Sesion
+            </Nav.Link>
 
             <Nav.Link as={Link} to="/sign-up">
               Registrate
@@ -69,6 +60,67 @@ const NavBar = (props) => {
       </Container>
     </Navbar>
   );
+
+  const authenticatedNavBarContent = (
+    <Navbar className="navbar" bg="dark" variant="dark" expand="lg">
+      <Container className="flex-column">
+        <div className="first-row">
+          <Navbar.Brand as={Link} to="/">
+            APC-Hardware
+          </Navbar.Brand>
+
+          <Form className="d-flex">
+            <FormControl
+              type="search"
+              placeholder="Buscar"
+              className="me-2"
+              aria-label="Buscar"
+            ></FormControl>
+            <Button variant="outline-success">Buscar</Button>
+          </Form>
+          <Nav className="justify-content-end">
+            <NavDropdown title="Usuario">
+              <NavDropdown.Item as={Link} to="/profile/testUser">
+                Perfil
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/testUser/orders">
+                Ordenes
+              </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/testUser/tickets">
+                Tickets
+              </NavDropdown.Item>
+            </NavDropdown>
+
+            <Nav.Link as={Link} to="/sign-up">
+              Salir
+            </Nav.Link>
+            <Nav.Link as={Link} to="/contacto">
+              Contacto
+            </Nav.Link>
+
+            <Nav.Link as={Link} to="/userTest/carrito">
+              Carrito
+            </Nav.Link>
+          </Nav>
+        </div>
+        <Row>
+          <Nav>
+            <Nav.Link href="#">Computadoras</Nav.Link>
+            <Nav.Link href="#">Procesadores</Nav.Link>
+            <Nav.Link href="#">Fuentes de Poder</Nav.Link>
+            <Nav.Link href="#">Memorias Ram</Nav.Link>
+          </Nav>
+        </Row>
+      </Container>
+    </Navbar>
+  );
+
+  const navBarContent =
+    authenticated === "authenticated"
+      ? authenticatedNavBarContent
+      : guestNavBarContent;
+
+  return navBarContent;
 };
 
 export default NavBar;

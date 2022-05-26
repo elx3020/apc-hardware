@@ -45,7 +45,7 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <Router>
-          <NavBar />
+          <NavBar authenticated={authStatus} />
           <Switch>
             <Route exact path="/" component={HomePage} />
 
