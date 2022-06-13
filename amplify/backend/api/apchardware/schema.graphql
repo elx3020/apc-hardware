@@ -22,7 +22,7 @@ type Order @model {
 }
 
 type Product @model {
-  product_id: ID! @primaryKey
+  product_id: ID!
   name: String!
   model: String!
   image: String

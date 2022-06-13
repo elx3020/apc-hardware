@@ -3,9 +3,16 @@ import {
   GET_PRODUCTS,
   LOADING_UI,
   LOADING_PRODUCTS,
+  SET_PRODUCT,
 } from "../types.js";
 
-// fake payload to test functionality ---------------------------------------
+import { API, graphqlOperation } from "aws-amplify";
+
+import { listProducts, getProduct } from "../../graphql/queries.js";
+import { createProduct } from "../../graphql/mutations.js";
+// import { v4 as uuidv4 } from "uuid";
+
+// import queries from api
 
 // set loading /// --------------------------------------------- testing ---------------------------
 
@@ -33,14 +40,31 @@ export const setLoading = () => (dispatch) => {
 
 // get summary information of a product
 
-export const getProducts = () => (dispatch) => {
+// get products home page
+export const getProducts = () => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
   dispatch({ type: GET_PRODUCTS });
+  try {
+    const { data } = await API.graphql({
+      query: listProducts,
+      authMode: "API_KEY",
+    });
+    const products = data.listProducts.items;
+    console.log(products);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-export const getProduct = () => (dispatch) => {
-  dispatch({ type: LOADING_PRODUCTS });
-  dispatch({ type: GET_PRODUCT });
+// add a new product
 
-  // payload: res.data
+export const addProduct = (productData) => async (dispatch) => {
+  dispatch({ type: LOADING_PRODUCTS });
+  try {
+    await API.graphql(graphqlOperation(createProduct, { input: productData }));
+    dispatch({ type: SET_PRODUCT, payload: productData });
+  } catch (err) {
+    // TODO handle with a type of error to show the error in the interface
+    console.error(err);
+  }
 };

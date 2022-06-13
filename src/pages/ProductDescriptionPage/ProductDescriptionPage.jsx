@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 // redux
 import { connect } from "react-redux";
-import { getProduct } from "../../Redux/actions/dataActions";
+// import { getProduct } from "../../Redux/actions/dataActions";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 //  components
@@ -24,10 +24,10 @@ export const ProductDescriptionPage = (props) => {
 
   const { product, products } = props;
 
-  useEffect(() => {
-    console.log("s");
-    getProduct();
-  }, []);
+  // useEffect(() => {
+  //   console.log("s");
+  //   getProduct();
+  // }, []);
 
   return (
     <div>
@@ -170,7 +170,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getProduct,
+  // getProduct,
 };
 
 export default connect(

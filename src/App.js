@@ -20,6 +20,7 @@ import ProductDescriptionPage from "./pages/ProductDescriptionPage/ProductDescri
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import TicketPage from "./pages/TicketPage/TicketPage";
+import AdminPage from "./pages/AdminPage/AdminPage";
 import Page404 from "./pages/Page404/Page404";
 
 // redux
@@ -36,7 +37,6 @@ function App() {
   // authentication
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
 
-  console.log(authStatus);
   // if (token) {
 
   // }
@@ -91,6 +91,10 @@ function App() {
             <Route path="/warranty-policy">
               <WarrantyPolicyPage />
             </Route>
+            <Route path="/admin">
+              <AdminPage />
+            </Route>
+
             <Route path="/*">
               <Page404 />
             </Route>

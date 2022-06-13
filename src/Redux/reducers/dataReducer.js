@@ -1,5 +1,10 @@
 /* eslint-disable default-case */
-import { GET_PRODUCTS, GET_PRODUCT, LOADING_PRODUCTS } from "../types";
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  LOADING_PRODUCTS,
+  SET_PRODUCT,
+} from "../types";
 
 // ---------------------------------------------------------testing --------------------------------------------
 
@@ -25,15 +30,20 @@ const productDescription = {
 
 // initial state in production should only show the structure of the data
 
-const intialState = {
+const initialState = {
   products: [productItem, productItem, productItem, productItem],
   product: productDescription,
   comments: [],
   loading: false,
 };
 
-export default function (state = intialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
+    case SET_PRODUCT:
+      return {
+        ...state,
+        products: [...state.products, action.payload],
+      };
     case GET_PRODUCTS:
       return {
         ...state,
