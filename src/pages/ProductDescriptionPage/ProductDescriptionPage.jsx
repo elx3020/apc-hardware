@@ -15,7 +15,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Figure from "react-bootstrap/Figure";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import ProductCategoryComponent from "../../components/PageSection/ProductSection/ProductCategoryComponent";
+import ProductCardContainer from "../../components/PageSection/Products/ProductCardContainer";
 
 import "./style.scss";
 
@@ -149,7 +149,11 @@ export const ProductDescriptionPage = (props) => {
           </Accordion>
           <section>
             <h3>Productos similares</h3>
-            <ProductCategoryComponent category="Computadoras" data={products} />
+            <ProductCardContainer
+              category="computer"
+              titleCategory="Computadoras"
+              data={products}
+            />
           </section>
 
           <section>

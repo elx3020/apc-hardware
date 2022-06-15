@@ -9,17 +9,19 @@ import RecomendationsComponent from "./RecomendationsComponent";
 
 // other imports
 import "./style.scss";
-import productImage from "../../../images/logo192.png";
+import promocionImg from "../../../images/promocion1.png";
 
-function HeroHomePage() {
+function HeroHomePage(props) {
+  const { data } = props;
+
   return (
     <div>
       <div className="hero-flex">
         <div className="hero-wrapper">
-          <img src="/sd" alt="promociones" />
+          <img src={promocionImg} alt="promociones" />
         </div>
         <div className="hero-wrapper">
-          <RecomendationsComponent />
+          <RecomendationsComponent data={data} />
           <div>Informacion sobre el negocio</div>
         </div>
       </div>

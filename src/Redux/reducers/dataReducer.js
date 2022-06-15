@@ -10,13 +10,41 @@ import {
 
 import fakeImg from "../../images/logo192.png";
 
-const productItem = {
+const raton = {
   img: fakeImg,
-  title: "FakeProduct",
-  rating: "rating",
+  title: "Raton de PC",
+  rating: 4.7,
   linkDescription: "I am a description for a fake product.Click go to product.",
+  categories: ["ratones", "periferico", "recomendado"],
 };
-
+const teclado = {
+  img: fakeImg,
+  title: "Teclado de PC",
+  rating: 4.2,
+  linkDescription: "I am a description for a fake product.Click go to product.",
+  categories: ["teclado", "periferico", "recomendado"],
+};
+const pcCase = {
+  img: fakeImg,
+  title: "Case PC",
+  rating: 3.4,
+  linkDescription: "I am a description for a fake product.Click go to product.",
+  categories: ["Cases", "periferico", "Pc"],
+};
+const computer = {
+  img: fakeImg,
+  title: "Computadora",
+  rating: 3.7,
+  linkDescription: "I am a description for a fake product.Click go to product.",
+  categories: ["computer", "gamer"],
+};
+const computer2 = {
+  img: fakeImg,
+  title: "Computadora2",
+  rating: 4,
+  linkDescription: "I am a description for a fake product.Click go to product.",
+  categories: ["computer", "gamer"],
+};
 const productDescription = {
   productId: 99,
   images: ["src1", "src2", "src3"],
@@ -31,7 +59,17 @@ const productDescription = {
 // initial state in production should only show the structure of the data
 
 const initialState = {
-  products: [productItem, productItem, productItem, productItem],
+  products: [
+    raton,
+    teclado,
+    pcCase,
+    computer,
+    raton,
+    teclado,
+    pcCase,
+    computer,
+    computer2,
+  ],
   product: productDescription,
   comments: [],
   loading: false,

@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import PageMarker from "../../components/layout/PageFiller/PageMarker";
 
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { Authenticator } from "@aws-amplify/ui-react";
+
 import "@aws-amplify/ui-react/styles.css";
 import "./style.scss";
 
 import logo from "../../images/apc_logo.png";
 
 import {
+  Authenticator,
   Heading,
   useTheme,
   View,
@@ -20,6 +20,7 @@ import {
   Text,
   useAuthenticator,
 } from "@aws-amplify/ui-react";
+import { useHistory, useLocation } from "react-router-dom";
 
 // old form maybe I wont needed
 const oldForm = (
@@ -51,6 +52,7 @@ const oldForm = (
   </div>
 );
 
+// components for the authenticator component, styling, elements
 const components = {
   Header() {
     const { tokens } = useTheme();
@@ -222,6 +224,7 @@ const components = {
   },
 };
 
+// custom form fields for sign up and loggin
 const formFields = {
   signIn: {
     username: {
@@ -261,7 +264,7 @@ const formFields = {
   confirmResetPassword: {
     confirmation_code: {
       labelHidden: false,
-      placeholder: "Entra el codigo de confirmación:",
+      placeholder: "Entrar el codigo de confirmación:",
       label: "New Label",
       isRequired: false,
     },
@@ -293,10 +296,22 @@ const formFields = {
 };
 
 export const LoginPage = (props) => {
+  const { route } = useAuthenticator((context) => [context.route]);
+  const location = useLocation();
+  const history = useHistory();
+  let from = location.state?.from?.pathname || "/";
+
+  useEffect(() => {
+    if (route === "authenticated") {
+      history.replace(from);
+    }
+  }, [route, from, history]);
+
   return (
-    <Authenticator formFields={formFields} components={components}>
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-    </Authenticator>
+    <Authenticator
+      formFields={formFields}
+      components={components}
+    ></Authenticator>
   );
 };
 

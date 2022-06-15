@@ -1,6 +1,6 @@
 {
   "auth": {
-    "apchardwared39ae4c1": {
+    "apchardware34297cb4": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -54,7 +54,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "apchardwared39ae4c1",
+          "resourceName": "apchardware34297cb4",
           "attributes": [
             "UserPoolId"
           ]
@@ -65,7 +65,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authapchardwared39ae4c1"
+              "userPoolId": "authapchardware34297cb4"
             }
           },
           "additionalAuthenticationProviders": [
@@ -73,8 +73,8 @@
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
                 "apiKeyExpirationDays": 365,
-                "apiKeyExpirationDate": "2023-05-21T06:18:47.299Z",
-                "description": "Guest User Access to products"
+                "apiKeyExpirationDate": "2023-06-15T19:59:07.847Z",
+                "description": "Guess user access to products"
               }
             }
           ]

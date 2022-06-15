@@ -2,12 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 // redux
 import { connect } from "react-redux";
-import { setLoading, getProducts } from "../../Redux/actions/dataActions";
+// import { setLoading, getProducts } from "../../Redux/actions/dataActions";
 
 // components
 import HeroHomePage from "../../components/PageSection/HeroHomePage/HeroHomePage";
 import HomeCalculatorComponent from "../../components/PageSection/CalculatorComponent/HomeCalculatorComponent";
-import ProductCategoryComponent from "../../components/PageSection/ProductSection/ProductCategoryComponent";
+import ProductCardContainer from "../../components/PageSection/Products/ProductCardContainer";
 import { Container } from "react-bootstrap";
 
 export const HomePage = (props) => {
@@ -16,7 +16,7 @@ export const HomePage = (props) => {
   const { loading } = props;
 
   useEffect(() => {
-    props.getProducts();
+    // props.getProducts();
   }, []);
 
   const pageContent = loading ? (
@@ -24,10 +24,20 @@ export const HomePage = (props) => {
   ) : (
     <div>
       <Container style={{ maxWidth: "80%" }}>
-        <HeroHomePage />
+        <HeroHomePage data={products} />
         <HomeCalculatorComponent />
-        <ProductCategoryComponent category="Computadoras" data={products} />
-        <ProductCategoryComponent category="Procesadores" data={products} />
+        <ProductCardContainer
+          category="ratones"
+          titleCategory="Mouse"
+          data={products}
+          nItems={3}
+        />
+        <ProductCardContainer
+          category="computer"
+          titleCategory="Computadoras"
+          data={products}
+          nItems={3}
+        />
       </Container>
     </div>
   );
@@ -42,8 +52,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  setLoading,
-  getProducts,
+  // setLoading,
+  // getProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

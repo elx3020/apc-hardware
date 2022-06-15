@@ -13,8 +13,8 @@
     },
     "categories": {
       "auth": {
-        "apchardwared39ae4c1": {},
-        "true": {}
+        "true": {},
+        "apchardware34297cb4": {}
       },
       "function": {
         "processPayment": {

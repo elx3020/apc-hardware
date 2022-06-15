@@ -1,3 +1,5 @@
+@import "../../../Scss/mixins.scss";
+
 .hero-flex {
   display: flex;
   margin: 7% 0 4% 0;
@@ -7,9 +9,10 @@
 .hero-wrapper {
   background-color: white;
   padding: 1.5%;
-  height: 70vh;
+  height: 60vh;
   width: 100%;
   overflow: hidden;
+  @include flex-center;
 }
 
 .card {

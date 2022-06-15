@@ -6,8 +6,10 @@ import { Fragment } from "react";
 import NavBar from "./components/layout/NavBar/NavBar";
 import Footer from "./components/layout/Footer/Footer";
 import AuthRoute from "./components/UserControl/AuthRoute";
+import RequiredAuth from "./components/UserControl/RequiredAuth";
 // pages
 import HomePage from "./pages/HomePage/HomePage";
+import SearchResultPage from "./pages/SearchResultPage/SearchResultPage";
 import ContactPage from "./pages/ContactPage/ContactPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import CartPage from "./pages/CartPage/CartPage";
@@ -49,18 +51,22 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomePage} />
 
+            <Route path="/:searchParams/results">
+              <SearchResultPage />
+            </Route>
+
             <Route path="/contacto">
               <ContactPage />
             </Route>
             <Route path="/iniciar-sesion">
               <LoginPage />
             </Route>
+            <Route path="/:user/carrito">
+              <RequiredAuth>
+                <CartPage />
+              </RequiredAuth>
+            </Route>
 
-            <AuthRoute
-              path="/:user/carrito"
-              authenticated={authStatus}
-              component={CartPage}
-            />
             <Route path="/:user/orders">
               <OrderPage />
             </Route>
@@ -92,7 +98,9 @@ function App() {
               <WarrantyPolicyPage />
             </Route>
             <Route path="/admin">
-              <AdminPage />
+              <RequiredAuth>
+                <AdminPage />
+              </RequiredAuth>
             </Route>
 
             <Route path="/*">

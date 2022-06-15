@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import Card from "react-bootstrap/Card";
 
-export const ProductComponent = (props) => {
+export const ProductCard = (props) => {
   const { title, src, description, id, rating } = props;
 
   const history = useHistory();
@@ -17,7 +17,13 @@ export const ProductComponent = (props) => {
 
   return (
     <Card
-      style={{ border: "none", padding: "0 1%", cursor: "pointer" }}
+      style={{
+        width: "25%",
+        maxWidth: "280px",
+        border: "none",
+        padding: "1% 1%",
+        cursor: "pointer",
+      }}
       onClick={handleClick}
     >
       <Card.Img src={src} alt={src} variant="top" />
@@ -33,4 +39,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
