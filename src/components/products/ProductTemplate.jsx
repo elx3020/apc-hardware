@@ -23,20 +23,25 @@ const {
   aws_user_files_s3_bucket: bucket,
 } = config;
 
-function CreateProductComponent(props) {
-  // components states
-  const [imagesFile, setImagesFile] = useState([]);
-  const [imageData, setImageData] = useState([]);
-  const [productDetails, setProductDetails] = useState({
+function ProductTemplate(props) {
+  const initialProductState = {
     name: "",
     price: "",
     quantity: "",
     model: "",
+    rating: 0,
+    numberRatings: 0,
+    categories: [],
     images: [],
     manufacturer: "",
     description: "",
     discountStatus: false,
-  });
+  };
+
+  // components states
+  const [imagesFile, setImagesFile] = useState([]);
+  const [imageData, setImageData] = useState([]);
+  const [productDetails, setProductDetails] = useState(initialProductState);
 
   //add redirect after
 
@@ -44,6 +49,24 @@ function CreateProductComponent(props) {
     e.preventDefault();
     props.addProduct(productDetails);
     handleImageUpload(e);
+    handleClear();
+  }
+
+  function handleClear() {
+    document.getElementById("create-product-form").reset();
+    setImagesFile([]);
+    setImageData([]);
+    setProductDetails(initialProductState);
+  }
+
+  function handleCategory() {
+    const categoryText = document.getElementById("category-id");
+    if (categoryText.value === "") return;
+    setProductDetails({
+      ...productDetails,
+      categories: [...productDetails.categories, categoryText.value],
+    });
+    categoryText.value = "";
   }
 
   // get upload images into the state of the component
@@ -55,13 +78,41 @@ function CreateProductComponent(props) {
 
   // images get added and get a previzualization;
 
+  const addCategory = () => {
+    if (productDetails.categories.length > 0) {
+      const categoriesTag = productDetails.categories.map((category, index) => {
+        return (
+          <div key={index} className="category-item" onClick={removeCategory}>
+            <p>{category}</p>
+          </div>
+        );
+      });
+      return categoriesTag;
+    }
+  };
+
+  const removeCategory = (e) => {
+    setProductDetails({
+      ...productDetails,
+      categories: productDetails.categories.filter(
+        (category) => category !== e.target.outerText
+      ),
+    });
+  };
+
+  const categoriesTag = addCategory();
+
   const generatePreviewImages = () => {
     if (imagesFile.length > 0) {
-      const imageObject = imagesFile.map((file) => {
+      const imageObject = imagesFile.map((file, index) => {
         const src = URL.createObjectURL(file);
         return (
-          <div className="image-container">
-            <img className="image-preview" src={src} alt="" />
+          <div key={index} className="image-container">
+            <img
+              className="image-preview"
+              src={src}
+              alt={file.name.split(".")[0]}
+            />
           </div>
         );
       });
@@ -113,8 +164,8 @@ function CreateProductComponent(props) {
     <div>
       <Container style={{ padding: "3% 0" }}>
         <h2>Crear Producto</h2>
-        <Form onSubmit={handleSubmit}>
-          {/* Nombre */}
+        <Form id="create-product-form" onSubmit={handleSubmit}>
+          {/*----------------------------------------------------------------- Nombre------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productName">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -126,11 +177,12 @@ function CreateProductComponent(props) {
               required
             />
           </Form.Group>
-          {/* Precio */}
+          {/*----------------------------------------------------------------- Precio-------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productPrice">
             <Form.Label>Precio</Form.Label>
             <Form.Control
               type="number"
+              step="0.01"
               placeholder="Precio"
               onChange={(e) =>
                 setProductDetails({
@@ -138,9 +190,11 @@ function CreateProductComponent(props) {
                   price: e.target.value,
                 })
               }
+              required
             />
             {/* Cantidad */}
           </Form.Group>
+          {/* ----------------------------------------------------------------Cantidad------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productQuantity">
             <Form.Label>Cantidad</Form.Label>
             <Form.Control
@@ -152,8 +206,10 @@ function CreateProductComponent(props) {
                   quantity: e.target.value,
                 })
               }
+              required
             />
           </Form.Group>
+          {/* ----------------------------------------------------------------modelo------------------------------------------------------------------------ */}
           <Form.Group className="mb-3" controlId="productModel">
             <Form.Label>Modelo</Form.Label>
             <Form.Control
@@ -165,18 +221,30 @@ function CreateProductComponent(props) {
                   model: e.target.value,
                 })
               }
+              required
             />
+
+            {/* ----------------------------------------------------------------categorias------------------------------------------------------------------- */}
           </Form.Group>
+          <Form.Group className="mb-3" controlId="category-id">
+            <Form.Label>Categoria</Form.Label>
+            <Form.Control type="text" placeholder="Escribe una categoria" />
+            <div className="category-wrapper">{categoriesTag}</div>
+          </Form.Group>
+          <Button onClick={handleCategory}>Añadir Categoria</Button>
+          {/* ----------------------------------------------------------------images------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productImages">
             <Form.Label>Imagenes</Form.Label>
             <Form.Control
               type="file"
-              accept="image/jpg"
+              accept="image/*"
               onChange={getUploadedImages}
               multiple
+              required
             />
             <div className="form-image">{previewImages}</div>
           </Form.Group>
+          {/* ----------------------------------------------------------------fabricante------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="manufacturer">
             <Form.Label>Fabricante</Form.Label>
             <Form.Control
@@ -188,13 +256,15 @@ function CreateProductComponent(props) {
                   manufacturer: e.target.value,
                 })
               }
+              required
             />
           </Form.Group>
+          {/* ----------------------------------------------------------------descripcion------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productDescription">
             <Form.Label>Descripcion</Form.Label>
             <Form.Control
               as="textarea"
-              rows={3}
+              rows={20}
               placeholder="Descripcion del producto.."
               onChange={(e) =>
                 setProductDetails({
@@ -202,8 +272,10 @@ function CreateProductComponent(props) {
                   description: e.target.value,
                 })
               }
+              required
             />
           </Form.Group>
+          {/* ----------------------------------------------------------------descuento------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="discountStatus">
             <Form.Check
               type="checkbox"
@@ -220,7 +292,8 @@ function CreateProductComponent(props) {
           </Form.Group>
           <Button variant="primary" type="submit">
             Crear Producto
-          </Button>
+          </Button>{" "}
+          <Button onClick={handleClear}>Limpiar Formulario</Button>
         </Form>
       </Container>
     </div>
@@ -233,7 +306,4 @@ const mapDispatchToProps = {
   addProduct,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateProductComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductTemplate);

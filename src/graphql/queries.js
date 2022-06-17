@@ -9,6 +9,9 @@ export const getProducts = /* GraphQL */ `
       price
       quantity
       model
+      rating
+      numberRatings
+      categories
       images
       manufacturer
       description
@@ -31,6 +34,9 @@ export const listProducts = /* GraphQL */ `
         price
         quantity
         model
+        rating
+        numberRatings
+        categories
         images
         manufacturer
         description

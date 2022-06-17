@@ -20,6 +20,9 @@ type Products
   price: Float!
   quantity: Int!
   model: String!
+  rating: Float!
+  numberRatings: Int!
+  categories: [String]!
   images: [String]!
   manufacturer: String!
   description: String!

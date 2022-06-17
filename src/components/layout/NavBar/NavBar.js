@@ -94,10 +94,12 @@ const NavBar = (props) => {
       <Container className="flex-column">
         <div className="first-row">
           <Navbar.Brand as={Link} to="/">
-            APC-Hardware
+            <div className="img-logo">
+              <img src={logoImage} alt="apc-logo" />
+            </div>
           </Navbar.Brand>
 
-          <Form className="d-flex" onSubmit={handleSearchBarSubmit}>
+          <Form className="search-bar" onSubmit={handleSearchBarSubmit}>
             <FormControl
               type="search"
               placeholder="Buscar"

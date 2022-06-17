@@ -17,18 +17,25 @@ export const ProductCardContainer = (props) => {
 
   const filterdata = filterbyCategory(data, category, nItems);
 
-  const products = filterdata.map((item, index) => {
-    return (
-      <ProductCard
-        id={`${index}${item.title}`}
-        key={index}
-        title={item.title}
-        src={item.img}
-        description={item.linkDescription}
-        rating={item.rating}
-      />
+  console.log(filterdata);
+
+  const products =
+    filterdata.length > 0 ? (
+      filterdata.map((item, index) => {
+        return (
+          <ProductCard
+            id={item.id}
+            key={index}
+            name={item.name}
+            image={item.images[0]}
+            rating={item.rating}
+            price={item.price}
+          />
+        );
+      })
+    ) : (
+      <div>Nothing to show</div>
     );
-  });
 
   return (
     <div className="home-category">

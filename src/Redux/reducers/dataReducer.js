@@ -59,18 +59,9 @@ const productDescription = {
 // initial state in production should only show the structure of the data
 
 const initialState = {
-  products: [
-    raton,
-    teclado,
-    pcCase,
-    computer,
-    raton,
-    teclado,
-    pcCase,
-    computer,
-    computer2,
-  ],
-  product: productDescription,
+  products: [],
+  productsbyCategory: {},
+  productDescription: {},
   comments: [],
   loading: false,
 };
@@ -81,11 +72,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         products: [...state.products, action.payload],
+        loading: false,
       };
     case GET_PRODUCTS:
       return {
         ...state,
-        // products: action.payload,
+        products: action.payload,
         loading: false,
       };
     case GET_PRODUCT:

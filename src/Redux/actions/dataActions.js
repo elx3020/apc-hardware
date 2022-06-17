@@ -8,6 +8,8 @@ import {
 
 import { API, graphqlOperation } from "aws-amplify";
 import { createProducts } from "../../graphql/mutations.js";
+
+import { listProducts } from "../../graphql/queries.js";
 // import { v4 as uuidv4 } from "uuid";
 
 // import queries from api
@@ -40,28 +42,34 @@ export const setLoading = () => (dispatch) => {
 
 // get products home page
 
-// export const getProducts = () => async (dispatch) => {
-//   dispatch({ type: LOADING_PRODUCTS });
-//   dispatch({ type: GET_PRODUCTS });
-//   try {
-//     const { data } = await API.graphql({
-//       query: listProducts,
-//       authMode: "API_KEY",
-//     });
-//     const products = data.listProducts.items;
-//     console.log(products);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+export const getProducts = () => async (dispatch) => {
+  dispatch({ type: LOADING_PRODUCTS });
+
+  try {
+    const result = await API.graphql(graphqlOperation(listProducts));
+    console.log(result.data.listProducts);
+    if (result != null) {
+      dispatch({ type: GET_PRODUCTS, payload: result.data.listProducts.items });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 // add a new product
 
 export const addProduct = (productData) => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
   try {
-    await API.graphql(graphqlOperation(createProducts, { input: productData }));
-    dispatch({ type: SET_PRODUCT, payload: productData });
+    const pushProduct = await API.graphql(
+      graphqlOperation(createProducts, { input: productData })
+    );
+
+    if (pushProduct) {
+      dispatch({ type: SET_PRODUCT, payload: productData });
+      alert("Producto añadido exitosamente");
+      console.log("success");
+    }
   } catch (err) {
     // TODO handle with a type of error to show the error in the interface
     console.error(err);

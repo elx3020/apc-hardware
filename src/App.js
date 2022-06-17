@@ -23,6 +23,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import TicketPage from "./pages/TicketPage/TicketPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import AddProductPage from "./pages/AddProductPage/AddProductPage";
 import Page404 from "./pages/Page404/Page404";
 
 // redux
@@ -97,10 +98,14 @@ function App() {
             <Route path="/warranty-policy">
               <WarrantyPolicyPage />
             </Route>
-            <Route path="/admin">
+            <Route exact path="/admin">
               <RequiredAuth>
                 <AdminPage />
               </RequiredAuth>
+            </Route>
+
+            <Route exact path="/admin/crear-producto">
+              <AddProductPage />
             </Route>
 
             <Route path="/*">

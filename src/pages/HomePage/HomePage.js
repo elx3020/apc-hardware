@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 // redux
 import { connect } from "react-redux";
-// import { setLoading, getProducts } from "../../Redux/actions/dataActions";
+import { getProducts } from "../../Redux/actions/dataActions";
 
 // components
 import HeroHomePage from "../../components/PageSection/HeroHomePage/HeroHomePage";
@@ -11,35 +11,39 @@ import ProductCardContainer from "../../components/PageSection/Products/ProductC
 import { Container } from "react-bootstrap";
 
 export const HomePage = (props) => {
-  const products = props.products;
+  const { products } = props;
 
   const { loading } = props;
 
   useEffect(() => {
-    // props.getProducts();
+    props.getProducts();
   }, []);
 
   const pageContent = loading ? (
     <h1>Loading Page..</h1>
   ) : (
-    <div>
-      <Container style={{ maxWidth: "80%" }}>
-        <HeroHomePage data={products} />
-        <HomeCalculatorComponent />
-        <ProductCardContainer
-          category="ratones"
-          titleCategory="Mouse"
-          data={products}
-          nItems={3}
-        />
-        <ProductCardContainer
-          category="computer"
-          titleCategory="Computadoras"
-          data={products}
-          nItems={3}
-        />
-      </Container>
-    </div>
+    <Container style={{ maxWidth: "80%" }}>
+      <HeroHomePage data={products} />
+      <HomeCalculatorComponent />
+      <ProductCardContainer
+        category="mouses"
+        titleCategory="Mouse"
+        data={products}
+        nItems={3}
+      />
+      <ProductCardContainer
+        category="cases"
+        titleCategory="PC Cases"
+        data={products}
+        nItems={3}
+      />
+      <ProductCardContainer
+        category="procesadores"
+        titleCategory="Procesadores"
+        data={products}
+        nItems={4}
+      />
+    </Container>
   );
 
   return <div>{pageContent}</div>;
@@ -52,8 +56,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  // setLoading,
-  // getProducts,
+  getProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

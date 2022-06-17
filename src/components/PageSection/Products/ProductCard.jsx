@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Card from "react-bootstrap/Card";
 
 export const ProductCard = (props) => {
-  const { title, src, description, id, rating } = props;
+  const { id, name, price, image, rating } = props;
 
   const history = useHistory();
 
@@ -18,19 +18,38 @@ export const ProductCard = (props) => {
   return (
     <Card
       style={{
-        width: "25%",
-        maxWidth: "280px",
+        maxWidth: "25%",
         border: "none",
         padding: "1% 1%",
         cursor: "pointer",
       }}
       onClick={handleClick}
     >
-      <Card.Img src={src} alt={src} variant="top" />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+          maxHeight: "230px",
+        }}
+      >
+        <Card.Img src={image} alt={image} variant="top" />
+      </div>
 
-      <Card.Title>{title}</Card.Title>
-      <div>{rating}</div>
-      <Card.Link>{description}</Card.Link>
+      <Card.Title></Card.Title>
+      <Card.Body>
+        <tbody>
+          <Card.Link as={"tr"}>{name}</Card.Link>
+          <tr>
+            <span>{rating}</span>
+          </tr>
+          <tr>
+            <span>$ </span>
+            <span>{price}</span>
+          </tr>
+        </tbody>
+      </Card.Body>
     </Card>
   );
 };
