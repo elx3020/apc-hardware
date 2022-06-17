@@ -7,9 +7,12 @@ import {
 } from "../types.js";
 
 import { API, graphqlOperation } from "aws-amplify";
+// queries....
+import { listShortProducts } from "../../graphql/custom-queries.js";
+import { getProducts, listProducts } from "../../graphql/queries";
+// mutations..
 import { createProducts } from "../../graphql/mutations.js";
 
-import { listProducts } from "../../graphql/queries.js";
 // import { v4 as uuidv4 } from "uuid";
 
 // import queries from api
@@ -42,12 +45,11 @@ export const setLoading = () => (dispatch) => {
 
 // get products home page
 
-export const getProducts = () => async (dispatch) => {
+export const getShortProducts = () => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
 
   try {
-    const result = await API.graphql(graphqlOperation(listProducts));
-    console.log(result.data.listProducts);
+    const result = await API.graphql(graphqlOperation(listShortProducts));
     if (result != null) {
       dispatch({ type: GET_PRODUCTS, payload: result.data.listProducts.items });
     }
@@ -75,3 +77,46 @@ export const addProduct = (productData) => async (dispatch) => {
     console.error(err);
   }
 };
+
+// get a complete product
+
+export const getProduct = (productID) => async (dispatch) => {
+  dispatch({ type: LOADING_PRODUCTS });
+  try {
+    const product = await API.graphql(
+      graphqlOperation(getProducts, { id: productID })
+    );
+
+    if (product) {
+      dispatch({ type: GET_PRODUCT, payload: product.data.getProducts });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//get similar products
+
+export const getProductbyCategory =
+  (productCategory, productId) => async (dispatch) => {
+    dispatch({ type: LOADING_PRODUCTS });
+    try {
+      const productsByCategory = await API.graphql(
+        graphqlOperation(listProducts, {
+          filter: {
+            categories: { contains: productCategory },
+            id: { notContains: productId },
+          },
+        })
+      );
+      if (productsByCategory) {
+        console.log(productsByCategory);
+        dispatch({
+          type: GET_PRODUCTS,
+          payload: productsByCategory.data.listProducts.items,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };

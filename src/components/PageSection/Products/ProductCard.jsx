@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, Link } from "react-router-dom";
 
 // components
 
@@ -11,9 +11,9 @@ export const ProductCard = (props) => {
 
   const history = useHistory();
 
-  function handleClick() {
-    history.push(`/products/${id}`);
-  }
+  // function handleClick() {
+  //   history.replace(`/products/${id}`);
+  // }
 
   return (
     <Card
@@ -23,7 +23,7 @@ export const ProductCard = (props) => {
         padding: "1% 1%",
         cursor: "pointer",
       }}
-      onClick={handleClick}
+      // onClick={handleClick}
     >
       <div
         style={{
@@ -40,12 +40,14 @@ export const ProductCard = (props) => {
       <Card.Title></Card.Title>
       <Card.Body>
         <tbody>
-          <Card.Link as={"tr"}>{name}</Card.Link>
+          <tr>
+            <Link to={`/products/${id}`}>{name}</Link>
+          </tr>
           <tr>
             <span>{rating}</span>
           </tr>
           <tr>
-            <span>$ </span>
+            <span>$</span>
             <span>{price}</span>
           </tr>
         </tbody>

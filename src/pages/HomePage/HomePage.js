@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 // redux
 import { connect } from "react-redux";
-import { getProducts } from "../../Redux/actions/dataActions";
+import { getShortProducts } from "../../Redux/actions/dataActions";
 
 // components
 import HeroHomePage from "../../components/PageSection/HeroHomePage/HeroHomePage";
@@ -16,7 +16,7 @@ export const HomePage = (props) => {
   const { loading } = props;
 
   useEffect(() => {
-    props.getProducts();
+    props.getShortProducts();
   }, []);
 
   const pageContent = loading ? (
@@ -56,7 +56,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  getProducts,
+  getShortProducts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -17,8 +17,6 @@ export const ProductCardContainer = (props) => {
 
   const filterdata = filterbyCategory(data, category, nItems);
 
-  console.log(filterdata);
-
   const products =
     filterdata.length > 0 ? (
       filterdata.map((item, index) => {

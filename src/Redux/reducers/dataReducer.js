@@ -83,7 +83,7 @@ export default function (state = initialState, action) {
     case GET_PRODUCT:
       return {
         ...state,
-        // product: action.payload,
+        productDescription: action.payload,
         loading: false,
       };
     case LOADING_PRODUCTS:
