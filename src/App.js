@@ -72,7 +72,7 @@ function App() {
               <OrderPage />
             </Route>
 
-            <Route path="/products/:productId">
+            <Route exact path="/products/:productId">
               <ProductDescriptionPage />
             </Route>
             <Route path="/profile/:user">
