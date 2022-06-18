@@ -30,18 +30,21 @@ export const HomePage = (props) => {
         titleCategory="Mouse"
         data={products}
         nItems={3}
+        loading={loading}
       />
       <ProductCardContainer
         category="cases"
         titleCategory="PC Cases"
         data={products}
         nItems={3}
+        loading={loading}
       />
       <ProductCardContainer
         category="procesadores"
         titleCategory="Procesadores"
         data={products}
         nItems={4}
+        loading={loading}
       />
     </Container>
   );

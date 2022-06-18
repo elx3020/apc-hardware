@@ -24,6 +24,8 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import TicketPage from "./pages/TicketPage/TicketPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import AddProductPage from "./pages/AddProductPage/AddProductPage";
+import InventarioPage from "./pages/InventarioPage/InventarioPage";
+import EditProductPage from "./pages/EditProductPage/EditProductPage";
 import Page404 from "./pages/Page404/Page404";
 
 // redux
@@ -38,7 +40,11 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 
 function App() {
   // authentication
-  const { authStatus } = useAuthenticator((context) => [context.authStatus]);
+  const { user, authStatus } = useAuthenticator((context) => [
+    context.authStatus,
+    context.user,
+  ]);
+  console.log(user);
 
   // if (token) {
 
@@ -75,6 +81,7 @@ function App() {
             <Route exact path="/products/:productId">
               <ProductDescriptionPage />
             </Route>
+
             <Route path="/profile/:user">
               <ProfilePage />
             </Route>
@@ -106,6 +113,13 @@ function App() {
 
             <Route exact path="/admin/crear-producto">
               <AddProductPage />
+            </Route>
+
+            <Route exact path="/admin/editproduct/:productId">
+              <EditProductPage />
+            </Route>
+            <Route exact path="/admin/inventario">
+              <InventarioPage />
             </Route>
 
             <Route path="/*">

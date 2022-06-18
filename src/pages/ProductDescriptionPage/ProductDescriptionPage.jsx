@@ -136,7 +136,11 @@ export const ProductDescriptionPage = (props) => {
           </Accordion>
           <section>
             <h3>Productos similares</h3>
-            <ProductCardContainer category={categories} data={products} />
+            {/* <ProductCardContainer
+              category={categories}
+              data={products}
+              loading={loading}
+            /> */}
           </section>
 
           {/* <section>

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // components
 
@@ -8,8 +8,6 @@ import Card from "react-bootstrap/Card";
 
 export const ProductCard = (props) => {
   const { id, name, price, image, rating } = props;
-
-  const history = useHistory();
 
   // function handleClick() {
   //   history.replace(`/products/${id}`);
@@ -21,7 +19,6 @@ export const ProductCard = (props) => {
         maxWidth: "25%",
         border: "none",
         padding: "1% 1%",
-        cursor: "pointer",
       }}
       // onClick={handleClick}
     >
@@ -38,17 +35,32 @@ export const ProductCard = (props) => {
       </div>
 
       <Card.Title></Card.Title>
-      <Card.Body>
+      <Card.Body as={"table"} style={{ padding: "1%" }}>
         <tbody>
           <tr>
-            <Link to={`/products/${id}`}>{name}</Link>
+            <td>
+              <span>{rating}</span>
+            </td>
+          </tr>
+          <tr style={{ fontSize: "22px" }}>
+            <td>
+              <span>$</span>
+              <span>{price}</span>
+            </td>
           </tr>
           <tr>
-            <span>{rating}</span>
-          </tr>
-          <tr>
-            <span>$</span>
-            <span>{price}</span>
+            <td>
+              <Link
+                to={`/products/${id}`}
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "110%",
+                  display: "inline-block",
+                }}
+              >
+                {name}
+              </Link>
+            </td>
           </tr>
         </tbody>
       </Card.Body>

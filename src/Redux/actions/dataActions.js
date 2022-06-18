@@ -8,7 +8,10 @@ import {
 
 import { API, graphqlOperation } from "aws-amplify";
 // queries....
-import { listShortProducts } from "../../graphql/custom-queries.js";
+import {
+  listShortProducts,
+  listProductsInventory,
+} from "../../graphql/custom-queries.js";
 import { getProducts, listProducts } from "../../graphql/queries";
 // mutations..
 import { createProducts } from "../../graphql/mutations.js";
@@ -49,8 +52,26 @@ export const getShortProducts = () => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
 
   try {
-    const result = await API.graphql(graphqlOperation(listShortProducts));
+    const result = await API.graphql({
+      query: listShortProducts,
+      authMode: "API_KEY",
+    });
     if (result != null) {
+      dispatch({ type: GET_PRODUCTS, payload: result.data.listProducts.items });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// get product inventory page
+
+export const getListProductsInventory = () => async (dispatch) => {
+  dispatch({ type: LOADING_PRODUCTS });
+
+  try {
+    const result = await API.graphql(graphqlOperation(listProductsInventory));
+    if (result) {
       dispatch({ type: GET_PRODUCTS, payload: result.data.listProducts.items });
     }
   } catch (err) {
@@ -83,9 +104,11 @@ export const addProduct = (productData) => async (dispatch) => {
 export const getProduct = (productID) => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
   try {
-    const product = await API.graphql(
-      graphqlOperation(getProducts, { id: productID })
-    );
+    const product = await API.graphql({
+      query: getProducts,
+      authMode: "API_KEY",
+      variables: { id: productID },
+    });
 
     if (product) {
       dispatch({ type: GET_PRODUCT, payload: product.data.getProducts });

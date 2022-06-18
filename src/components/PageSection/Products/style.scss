@@ -1,3 +1,26 @@
 .home-category {
   padding: 1.5vw 0;
 }
+
+.card-list-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 2vw;
+}
+
+.card-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-height: 200px;
+  background-color: white;
+  padding: 2vw;
+  column-gap: 2vw;
+  .img-wrapper-list {
+    max-width: 150px;
+  }
+  .card-text {
+    flex: 1;
+  }
+}
