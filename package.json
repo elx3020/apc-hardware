@@ -2,6 +2,7 @@
   "name": "apc-hardware",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://master.d2t5z9ne7k8d00.amplifyapp.com",
   "dependencies": {
     "@aws-amplify/ui-react": "^2.18.1",
     "@testing-library/jest-dom": "^5.16.4",

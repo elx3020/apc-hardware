@@ -44,7 +44,6 @@ function App() {
     context.authStatus,
     context.user,
   ]);
-  console.log(user);
 
   // if (token) {
 

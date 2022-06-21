@@ -16,7 +16,7 @@ export const ProductCard = (props) => {
   return (
     <Card
       style={{
-        maxWidth: "25%",
+        maxWidth: "18%",
         border: "none",
         padding: "1% 1%",
       }}
@@ -28,10 +28,14 @@ export const ProductCard = (props) => {
           alignItems: "center",
           justifyContent: "center",
           overflow: "hidden",
-          maxHeight: "230px",
         }}
       >
-        <Card.Img src={image} alt={image} variant="top" />
+        <Card.Img
+          style={{ maxWidth: "150px" }}
+          src={image}
+          alt={image}
+          variant="top"
+        />
       </div>
 
       <Card.Title></Card.Title>
