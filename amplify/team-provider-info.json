@@ -27,5 +27,33 @@
         }
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-apchardware-prod-85507-authRole",
+      "UnauthRoleArn": "arn:aws:iam::675923905285:role/amplify-apchardware-prod-85507-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::675923905285:role/amplify-apchardware-prod-85507-authRole",
+      "Region": "sa-east-1",
+      "DeploymentBucketName": "amplify-apchardware-prod-85507-deployment",
+      "UnauthRoleName": "amplify-apchardware-prod-85507-unauthRole",
+      "StackName": "amplify-apchardware-prod-85507",
+      "StackId": "arn:aws:cloudformation:sa-east-1:675923905285:stack/amplify-apchardware-prod-85507/42f775e0-f1f8-11ec-a8b8-02a2abc5aa42",
+      "AmplifyAppId": "d2t5z9ne7k8d00"
+    },
+    "categories": {
+      "auth": {
+        "apchardware34297cb4": {}
+      },
+      "function": {
+        "processPayment": {
+          "deploymentBucketName": "amplify-apchardware-prod-85507-deployment",
+          "s3Key": "amplify-builds/processPayment-6d6746307a46307a3849-build.zip"
+        },
+        "createOrder": {
+          "deploymentBucketName": "amplify-apchardware-prod-85507-deployment",
+          "s3Key": "amplify-builds/createOrder-4c7139465857726b6f6e-build.zip"
+        }
+      }
+    }
   }
 }
