@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { composeWithDevToolsLogOnlyInProduction } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 
 import userReducer from "./reducers/userReducer";
@@ -15,13 +16,14 @@ const reducers = combineReducers({
   ui: uiReducer,
 });
 
+const composeEnhancers = composeWithDevToolsLogOnlyInProduction({
+  // options like actionSanitizer, stateSanitizer
+});
+
 const store = createStore(
   reducers,
   initialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  composeEnhancers(applyMiddleware(...middleware))
 );
 
 export default store;

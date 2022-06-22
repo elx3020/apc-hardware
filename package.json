@@ -5,6 +5,7 @@
   "homepage": "https://master.d2t5z9ne7k8d00.amplifyapp.com",
   "dependencies": {
     "@aws-amplify/ui-react": "^2.18.1",
+    "@redux-devtools/extension": "^3.2.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
