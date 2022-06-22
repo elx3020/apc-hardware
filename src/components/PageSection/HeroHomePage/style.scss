@@ -4,6 +4,10 @@
   display: flex;
   margin: 7% 0 4% 0;
   column-gap: 1%;
+  row-gap: 3vh;
+  @media screen and(max-width: 450px) {
+    flex-direction: column;
+  }
 }
 
 .hero-wrapper {

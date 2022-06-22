@@ -27,6 +27,8 @@ import AddProductPage from "./pages/AddProductPage/AddProductPage";
 import InventarioPage from "./pages/InventarioPage/InventarioPage";
 import EditProductPage from "./pages/EditProductPage/EditProductPage";
 import Page404 from "./pages/Page404/Page404";
+// pages string routes
+import { pagesRoutes } from "./pages/pagesRoutes";
 
 // redux
 import { Provider } from "react-redux";
@@ -37,6 +39,7 @@ import "./App.scss";
 
 // aws authentication
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { useEffect } from "react";
 
 function App() {
   // authentication
@@ -45,79 +48,93 @@ function App() {
     context.user,
   ]);
 
-  // if (token) {
+  // get user into the store
 
-  // }
+  // pages routes
+
+  const {
+    home,
+    login,
+    signup,
+    contact,
+    cart,
+    profile,
+    orders,
+    tickets,
+    products,
+    calculator,
+    deliveryPolicy,
+    privatePolicy,
+    warrantyPolicy,
+  } = pagesRoutes;
 
   return (
     <div className="App">
       <Provider store={store}>
         <Router>
-          <NavBar authenticated={authStatus} />
+          <NavBar authenticated={authStatus} routesLinks={pagesRoutes} />
           <Switch>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path={home} component={HomePage} />
 
             <Route path="/:searchParams/results">
               <SearchResultPage />
             </Route>
 
-            <Route path="/contacto">
+            <Route path={contact}>
               <ContactPage />
             </Route>
-            <Route path="/iniciar-sesion">
+            <Route path={login}>
               <LoginPage />
             </Route>
-            <Route path="/:user/carrito">
-              <RequiredAuth>
-                <CartPage />
-              </RequiredAuth>
+            <Route exact path={cart}>
+              <CartPage />
             </Route>
 
-            <Route path="/:user/orders">
+            <Route path={orders}>
               <OrderPage />
             </Route>
 
-            <Route exact path="/products/:productId">
+            <Route exact path={products}>
               <ProductDescriptionPage />
             </Route>
 
-            <Route path="/profile/:user">
+            <Route path={profile}>
               <ProfilePage />
             </Route>
 
-            <Route path="/:user/tickets">
+            <Route path={tickets}>
               <TicketPage />
             </Route>
             {/* Free Routes */}
-            <Route path="/sign-up">
+            <Route path={signup}>
               <SignUpPage />
             </Route>
-            <Route path="/pc-calculator">
+            <Route path={calculator}>
               <PcCalculatorPage />
             </Route>
-            <Route path="/privacy-policy">
+            <Route path={privatePolicy}>
               <PrivacyPage />
             </Route>
-            <Route path="/delivery-policy">
+            <Route path={deliveryPolicy}>
               <DeliveryPolicyPage />
             </Route>
-            <Route path="/warranty-policy">
+            <Route path={warrantyPolicy}>
               <WarrantyPolicyPage />
             </Route>
-            <Route exact path="/admin">
+            <Route exact path="/admin-apcec">
               <RequiredAuth>
                 <AdminPage />
               </RequiredAuth>
             </Route>
 
-            <Route exact path="/admin/crear-producto">
+            <Route exact path="/admin-apcec/crear-producto">
               <AddProductPage />
             </Route>
 
-            <Route exact path="/admin/editproduct/:productId">
+            <Route exact path="/admin-apcec/editproduct/:productId">
               <EditProductPage />
             </Route>
-            <Route exact path="/admin/inventario">
+            <Route exact path="/admin-apcec/inventario">
               <InventarioPage />
             </Route>
 

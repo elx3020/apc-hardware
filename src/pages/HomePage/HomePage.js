@@ -22,7 +22,7 @@ export const HomePage = (props) => {
   const pageContent = loading ? (
     <h1>Loading Page..</h1>
   ) : (
-    <Container style={{ maxWidth: "80%" }}>
+    <Container>
       <HeroHomePage data={products} />
       <HomeCalculatorComponent />
       <ProductCardContainer

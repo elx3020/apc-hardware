@@ -1,17 +1,89 @@
+@import "../../../Scss/variables.scss";
+
+.navbar-wrapper {
+}
+
 .first-row {
+  padding: 0.5% 3%;
+  background-color: $mainColorElements;
   display: flex;
-  width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   column-gap: 2vw;
+  @media screen and(max-width: 450px) {
+    padding: 0%;
+    height: 6vh;
+  }
+
+  .search-bar {
+    display: flex;
+    flex: 1;
+  }
+
+  .branding-img {
+    max-width: 75px;
+    cursor: pointer;
+  }
+
+  .option-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 1vw;
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
+    @media screen and(max-width: 450px) {
+      display: none;
+    }
+  }
+  .mobile-nav-button {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    width: 6vh;
+    height: 100%;
+    @media screen and(max-width: 450px) {
+      display: flex;
+    }
+  }
 }
 
-.img-logo {
-  width: 6vw;
-  height: 40px;
+.categories-row {
+  background-color: $mainColorElements;
+  width: 100%;
+  overflow-x: scroll;
+  .scroll-content {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1vw;
+    min-width: 700px;
+    @media screen and(max-width: 450px) {
+      justify-content: flex-start;
+    }
+  }
 }
 
-.search-bar {
-  display: flex;
-  flex: 1;
+.navpanel-wrapper {
+  display: none;
+  @media screen and(max-width: 450px) {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    color: white;
+    position: absolute;
+    background-color: $mainColorElements;
+    z-index: 99;
+    transition: transform 0.5s ease-in-out;
+    &.close {
+      transform: translateX(-100%);
+    }
+  }
 }

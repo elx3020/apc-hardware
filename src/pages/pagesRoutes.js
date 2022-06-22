@@ -1,0 +1,15 @@
+export const pagesRoutes = {
+  home: "/",
+  login: "/iniciar-sesion",
+  signup: "/registro",
+  contact: "/contacto",
+  cart: "/carrito/:user?",
+  profile: "/profile/:user",
+  orders: "/:user/orders",
+  tickets: "/:user/tickets",
+  products: "/products/:productId",
+  calculator: "/pc-calculator",
+  deliveryPolicy: "/privacy-policy",
+  privatePolicy: "/delivery-policy",
+  warrantyPolicy: "/warranty-policy",
+};
