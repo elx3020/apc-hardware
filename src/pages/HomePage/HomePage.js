@@ -8,6 +8,7 @@ import { getShortProducts } from "../../Redux/actions/dataActions";
 import HeroHomePage from "../../components/PageSection/HeroHomePage/HeroHomePage";
 import HomeCalculatorComponent from "../../components/PageSection/CalculatorComponent/HomeCalculatorComponent";
 import ProductCardContainer from "../../components/PageSection/Products/ProductCardContainer";
+
 import { Container } from "react-bootstrap";
 
 export const HomePage = (props) => {

@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import RecomendationsComponent from "./RecomendationsComponent";
-
+import NewsCarrousel from "../HomePageComponents/NewsCarrousel";
 // other imports
 import "./style.scss";
 import promocionImg from "../../../images/promocion1.png";
@@ -18,7 +18,7 @@ function HeroHomePage(props) {
     <div>
       <div className="hero-flex">
         <div className="hero-wrapper">
-          <img src={promocionImg} alt="promociones" />
+          <NewsCarrousel />
         </div>
         <div className="hero-wrapper">
           <RecomendationsComponent data={data} />
