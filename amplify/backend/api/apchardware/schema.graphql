@@ -23,7 +23,8 @@ type Products
   rating: Float!
   numberRatings: Int!
   categories: [String]!
-  images: [String]!
+  thumbnailImage: String!
+  images: [String]
   manufacturer: String!
   description: String!
   discountStatus: Boolean!

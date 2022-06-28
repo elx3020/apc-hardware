@@ -11,7 +11,7 @@ export const listShortProducts = /* GraphQL */ `
         price
         rating
         categories
-        images
+        thumbnailImage
       }
       nextToken
     }

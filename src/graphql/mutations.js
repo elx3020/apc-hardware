@@ -15,6 +15,7 @@ export const createProducts = /* GraphQL */ `
       rating
       numberRatings
       categories
+      thumbnailImage
       images
       manufacturer
       description
@@ -38,6 +39,7 @@ export const updateProducts = /* GraphQL */ `
       rating
       numberRatings
       categories
+      thumbnailImage
       images
       manufacturer
       description
@@ -61,6 +63,7 @@ export const deleteProducts = /* GraphQL */ `
       rating
       numberRatings
       categories
+      thumbnailImage
       images
       manufacturer
       description

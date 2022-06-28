@@ -13,6 +13,7 @@ import Row from "react-bootstrap/Row";
 
 import "./style.scss";
 import logoImage from "../../../images/icons/apc_logo_nav.png";
+import { Dropdown } from "react-bootstrap";
 
 const NavBar = (props) => {
   // state
@@ -20,7 +21,7 @@ const NavBar = (props) => {
   const [navPanelState, setNavPanelState] = useState("close");
   // props
   const { authenticated, routesLinks } = props;
-  const { home, login, contact, cart } = routesLinks;
+  const { home, login, contact, cart, perfil } = routesLinks;
   // authenticator
   const { signOut } = useAuthenticator((context) => [context.signOut]);
   const history = useHistory();
@@ -119,49 +120,42 @@ const NavBar = (props) => {
   );
 
   const authenticatedNavBarContent = (
-    <Navbar className="navbar" bg="dark" variant="dark" expand="lg">
-      <Container className="flex-column">
-        <div className="first-row">
-          <Navbar.Brand as={Link} to={home}>
-            <div className="img-logo">
-              <img src={logoImage} alt="apc-logo" />
-            </div>
-          </Navbar.Brand>
-
-          {searchBar}
-          <Nav className="justify-content-end">
-            <NavDropdown title="Usuario">
-              <NavDropdown.Item as={Link} to="/profile/testUser">
-                Perfil
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/testUser/orders">
-                Ordenes
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/testUser/tickets">
-                Tickets
-              </NavDropdown.Item>
-            </NavDropdown>
-
-            <Nav.Link onClick={logOut}>Salir</Nav.Link>
-            <Nav.Link as={Link} to={contact}>
-              Contacto
-            </Nav.Link>
-
-            <Nav.Link as={Link} to="/carrito/authenticatedUser">
-              Carrito
-            </Nav.Link>
-          </Nav>
+    <nav className="nav-bar">
+      <div className={`navbar-wrapper ${navPanelState}`}></div>
+      <div className="first-row">
+        <div
+          className="branding-img"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <img src={logoImage} alt="" />
         </div>
-        <Row>
-          <Nav>
-            <Nav.Link href="#">Computadoras</Nav.Link>
-            <Nav.Link href="#">Procesadores</Nav.Link>
-            <Nav.Link href="#">Fuentes de Poder</Nav.Link>
-            <Nav.Link href="#">Memorias Ram</Nav.Link>
-          </Nav>
-        </Row>
-      </Container>
-    </Navbar>
+        {searchBar}
+        <div className="option-menu">
+          <NavDropdown menuVariant="dark" title="Usuario">
+            <NavDropdown.Item as={Link} to="/profile/test">
+              Perfil
+            </NavDropdown.Item>
+          </NavDropdown>
+          <Link to={contact}>Contacto</Link>
+          <Link to={cart}>Carrito</Link>
+        </div>
+        <div className="mobile-nav-button" onClick={toggleNavPanel}>
+          M
+        </div>
+      </div>
+      <div className="categories-row">
+        <div className="scroll-content">
+          <p>Computadoras</p>
+          <p>Procesadores</p>
+          <p>Tarjetas Graficas</p>
+          <p>Memorias Rams</p>
+          <p>Fuentes de Poder</p>
+        </div>
+      </div>
+      {navPanel}
+    </nav>
   );
 
   const navBarContent =

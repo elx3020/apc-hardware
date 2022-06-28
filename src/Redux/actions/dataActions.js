@@ -90,7 +90,7 @@ export const addProduct = (productData) => async (dispatch) => {
 
     if (pushProduct) {
       dispatch({ type: SET_PRODUCT, payload: productData });
-      alert("Producto añadido exitosamente");
+      alert(`Producto ${productData.name} añadido exitosamente `);
       console.log("success");
     }
   } catch (err) {

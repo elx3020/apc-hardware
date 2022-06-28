@@ -12,6 +12,7 @@ export const getProducts = /* GraphQL */ `
       rating
       numberRatings
       categories
+      thumbnailImage
       images
       manufacturer
       description
@@ -37,6 +38,7 @@ export const listProducts = /* GraphQL */ `
         rating
         numberRatings
         categories
+        thumbnailImage
         images
         manufacturer
         description

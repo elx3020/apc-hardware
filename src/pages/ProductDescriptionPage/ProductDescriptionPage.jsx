@@ -35,6 +35,7 @@ export const ProductDescriptionPage = (props) => {
     categories,
     images,
     description,
+    thumbnailImage,
   } = product;
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export const ProductDescriptionPage = (props) => {
 
           <section className="flex-section product-info">
             <div className="img-wrapper">
-              <img src={images} alt="product" />
+              <img src={thumbnailImage } alt="product" />
             </div>
             <div className="product-details">
               <header>

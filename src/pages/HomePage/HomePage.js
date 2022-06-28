@@ -26,8 +26,8 @@ export const HomePage = (props) => {
       <HeroHomePage data={products} />
       <HomeCalculatorComponent />
       <ProductCardContainer
-        category="mouses"
-        titleCategory="Mouse"
+        category="componentes"
+        titleCategory="Componentes"
         data={products}
         nItems={3}
         loading={loading}

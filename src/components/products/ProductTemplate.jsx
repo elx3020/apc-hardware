@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { Authenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
+import ProductImageForm from "./ProductImageForm";
 // components bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -32,6 +33,7 @@ function ProductTemplate(props) {
     rating: 0,
     numberRatings: 0,
     categories: [],
+    thumbnailImage: "",
     images: [],
     manufacturer: "",
     description: "",
@@ -40,22 +42,23 @@ function ProductTemplate(props) {
 
   // components states
   const [imagesFile, setImagesFile] = useState([]);
-  const [imageData, setImageData] = useState([]);
   const [productDetails, setProductDetails] = useState(initialProductState);
 
   //add redirect after
 
   function handleSubmit(e) {
     e.preventDefault();
+    // submit data... send productDetails
     props.addProduct(productDetails);
+    // upload images to the bucket
     handleImageUpload(e);
+    // clear form and notify success or failure
     handleClear();
   }
 
   function handleClear() {
     document.getElementById("create-product-form").reset();
     setImagesFile([]);
-    setImageData([]);
     setProductDetails(initialProductState);
   }
 
@@ -73,7 +76,26 @@ function ProductTemplate(props) {
 
   const getUploadedImages = (e) => {
     e.preventDefault();
-    setImagesFile([...imagesFile, ...e.target.files]);
+    const { url, key } = generateImageUrl(e);
+
+    setImagesFile([
+      ...imagesFile,
+      { file: e.target.files[0], thumbnailImage: false, url: url, key: key },
+    ]);
+  };
+
+  const updateImageArray = () => {
+    const arrImages = [...imagesFile].map((image) => image.url);
+    setProductDetails({ ...productDetails, images: arrImages });
+  };
+
+  const generateImageUrl = (e) => {
+    const file = e.target.files[0];
+    const extension = file.name.split(".")[1];
+    const name = file.name.split(".")[0];
+    const key = `images/${uuidv4()}${name}.${extension}`;
+    const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
+    return { url: url, key: key };
   };
 
   // images get added and get a previzualization;
@@ -100,20 +122,45 @@ function ProductTemplate(props) {
     });
   };
 
+  function handleThumbnailSelection(e) {
+    let imageFiles = [...imagesFile];
+    console.log(imageFiles);
+    for (let i = 0; i < imageFiles.length; i++) {
+      imageFiles[i].thumbnailImage = false;
+    }
+
+    // imageFiles = imageFiles.map((item) => item["thumbnailImage"] = false);
+    imageFiles[e.target.id].thumbnailImage = true;
+    setImagesFile(imageFiles);
+    const tumbnailImage = imageFiles[e.target.id].url;
+    setProductDetails({ ...productDetails, thumbnailImage: tumbnailImage });
+  }
+
+  function handleDeleteImage(e) {
+    setImagesFile(
+      imagesFile.filter((item, index) => {
+        return index.toString() !== e.target.id;
+      })
+    );
+  }
   const categoriesTag = addCategory();
 
   const generatePreviewImages = () => {
+    // console.log(imagesFile.map((img) => img.file));
+    // imagesFile.length > 0
     if (imagesFile.length > 0) {
-      const imageObject = imagesFile.map((file, index) => {
-        const src = URL.createObjectURL(file);
+      const imageObject = imagesFile.map((imageFile, index) => {
+        const src = URL.createObjectURL(imageFile.file);
         return (
-          <div key={index} className="image-container">
-            <img
-              className="image-preview"
-              src={src}
-              alt={file.name.split(".")[0]}
-            />
-          </div>
+          <ProductImageForm
+            key={index}
+            isThumbnail={imageFile.thumbnailImage}
+            index={index}
+            src={src}
+            alt={imageFile.file.name.split(".")[0]}
+            handleThumbnailSelection={handleThumbnailSelection}
+            handleDeleteImage={handleDeleteImage}
+          />
         );
       });
       return imageObject;
@@ -124,24 +171,11 @@ function ProductTemplate(props) {
 
   const previewImages = generatePreviewImages();
 
-  const generateImageUrl = () => {
-    for (let i = 0; i < imagesFile.length; i++) {
-      const file = imagesFile[i];
-      const extension = file.name.split(".")[1];
-      const name = file.name.split(".")[0];
-      const key = `images/${uuidv4()}${name}.${extension}`;
-      const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
-      setImageData([...imageData, { key: key, url: url }]);
-      const images = productDetails.images;
-      setProductDetails({ ...productDetails, images: [...images, url] });
-    }
-  };
-
   // handle image upload
   const handleImageUpload = async () => {
-    for (let i = 0; i < imageData.length; i++) {
-      const file = imagesFile[i];
-      const { key, url } = imageData[i];
+    for (let i = 0; i < imagesFile.length; i++) {
+      const file = imagesFile[i].file;
+      const { key, url } = imagesFile[i];
 
       try {
         await Storage.put(key, file, {
@@ -157,7 +191,7 @@ function ProductTemplate(props) {
   // effect generate url after image is added to the ui
 
   useEffect(() => {
-    generateImageUrl();
+    updateImageArray();
   }, [imagesFile]);
 
   return (
@@ -240,7 +274,6 @@ function ProductTemplate(props) {
               accept="image/*"
               onChange={getUploadedImages}
               multiple
-              required
             />
             <div className="form-image">{previewImages}</div>
           </Form.Group>

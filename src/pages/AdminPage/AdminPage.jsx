@@ -13,7 +13,7 @@ function AdminPage() {
         <Card style={{ maxWidth: "300px" }}>
           <Card.Header>Crear Producto</Card.Header>
           <Card.Body>
-            <Card.Link as={Link} to="/admin/crear-producto">
+            <Card.Link as={Link} to="/admin-apcec/crear-producto">
               Crear Producto
             </Card.Link>
           </Card.Body>
@@ -21,7 +21,7 @@ function AdminPage() {
         <Card>
           <Card.Header>Inventario</Card.Header>
           <Card.Body>
-            <Card.Link as={Link} to="/admin/inventario">
+            <Card.Link as={Link} to="/admin-apcec/inventario">
               Inventario
             </Card.Link>
           </Card.Body>
