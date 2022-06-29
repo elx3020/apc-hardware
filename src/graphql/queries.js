@@ -50,3 +50,34 @@ export const listProducts = /* GraphQL */ `
     }
   }
 `;
+export const getNews = /* GraphQL */ `
+  query GetNews($id: ID!) {
+    getNews(id: $id) {
+      id
+      src
+      alt
+      caption
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNews = /* GraphQL */ `
+  query ListNews(
+    $filter: ModelNewsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        src
+        alt
+        caption
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

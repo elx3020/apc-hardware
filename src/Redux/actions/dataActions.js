@@ -2,8 +2,11 @@ import {
   GET_PRODUCT,
   GET_PRODUCTS,
   LOADING_UI,
+  SHOW_DATA,
   LOADING_PRODUCTS,
   SET_PRODUCT,
+  GET_NEWS,
+  SET_NEW,
 } from "../types.js";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -12,9 +15,9 @@ import {
   listShortProducts,
   listProductsInventory,
 } from "../../graphql/custom-queries.js";
-import { getProducts, listProducts } from "../../graphql/queries";
+import { getProducts, listProducts, listNews } from "../../graphql/queries";
 // mutations..
-import { createProducts } from "../../graphql/mutations.js";
+import { createNews, createProducts } from "../../graphql/mutations.js";
 
 // import { v4 as uuidv4 } from "uuid";
 
@@ -82,7 +85,6 @@ export const getListProductsInventory = () => async (dispatch) => {
 // add a new product
 
 export const addProduct = (productData) => async (dispatch) => {
-  dispatch({ type: LOADING_PRODUCTS });
   try {
     const pushProduct = await API.graphql(
       graphqlOperation(createProducts, { input: productData })
@@ -143,3 +145,29 @@ export const getProductbyCategory =
       console.error(err);
     }
   };
+
+export const getNews = () => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  try {
+    const news = await API.graphql(graphqlOperation(listNews));
+    dispatch({ type: GET_NEWS, payload: news.data.listNews.items });
+  } catch (err) {
+    console.error(err);
+  }
+  dispatch({ type: SHOW_DATA });
+};
+
+export const addNews = (newsData) => async (dispatch) => {
+  try {
+    const pushNews = await API.graphql(
+      graphqlOperation(createNews, { input: newsData })
+    );
+
+    if (pushNews) {
+      console.log("success");
+      dispatch({ type: SET_NEW, payload: newsData });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};

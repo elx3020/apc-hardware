@@ -1,17 +1,15 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY {
-  globalAuthRule: AuthRule = { allow: public }
-} # FOR TESTING ONLY!
+
 type Products
   @model(subscriptions: null)
   @auth(
     rules: [
-      # allow admins to create, update and delete books
+      # allow admins to create, update and delete products
       { allow: groups, groups: ["Admin"] }
-      # allow all authenticated users to view books
+      # allow all authenticated users to view products
       { allow: private, operations: [read] }
-      # allow all guest users (not authenticated) to view books
+      # allow all guest users (not authenticated) to view products
       { allow: public, operations: [read] }
     ]
   ) {
@@ -28,4 +26,22 @@ type Products
   manufacturer: String!
   description: String!
   discountStatus: Boolean!
+}
+
+type News
+  @model(subscriptions: null)
+  @auth(
+    rules: [
+      # allow admins to create, update and delete news
+      { allow: groups, groups: ["Admin"] }
+      # allow all authenticated users to view news
+      { allow: private, operations: [read] }
+      # allow all guest users (not authenticated) to view news
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  src: String!
+  alt: String!
+  caption: String!
 }

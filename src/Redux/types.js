@@ -8,6 +8,7 @@ export const GET_TICKETS = "GET_TICKETS";
 //  UI reducer Types
 export const SET_ERRORS = "SET_ERRORS";
 export const LOADING_UI = "LOADING_UI";
+export const SHOW_DATA = "SHOW_DATA";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOADING_PRODUCTS = "LOADING_PRODUCTS";
 
@@ -16,6 +17,9 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT = "GET_PRODUCT";
 export const SET_PRODUCT = "SET_PRODUCT";
 export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
+export const GET_NEWS = "GET_NEWS";
+export const SET_NEW = "SET_NEW";
+
 // export const SET_POST = "SET_POST";
 // export const DELETE_POST = "DELETE_POST";
 export const EVALUATE_PRODUCT = "EVALUATE_PRODUCT";

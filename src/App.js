@@ -26,6 +26,7 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import AddProductPage from "./pages/AddProductPage/AddProductPage";
 import InventarioPage from "./pages/InventarioPage/InventarioPage";
 import EditProductPage from "./pages/EditProductPage/EditProductPage";
+import CreateNewsPage from "./pages/CreateNewsPage/CreateNewsPage";
 import Page404 from "./pages/Page404/Page404";
 // pages string routes
 import { pagesRoutes } from "./pages/pagesRoutes";
@@ -121,6 +122,10 @@ function App() {
             <Route path={warrantyPolicy}>
               <WarrantyPolicyPage />
             </Route>
+
+
+            {/*--------------------------------------------------------------------------- admin routes --------------------------------------------------------------- */}
+            
             <Route exact path="/admin-apcec">
               <RequiredAuth>
                 <AdminPage />
@@ -137,6 +142,12 @@ function App() {
             <Route exact path="/admin-apcec/inventario">
               <InventarioPage />
             </Route>
+            <Route>
+              <CreateNewsPage />
+            </Route>
+            
+
+
 
             <Route path="/*">
               <Page404 />

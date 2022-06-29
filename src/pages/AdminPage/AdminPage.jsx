@@ -26,6 +26,14 @@ function AdminPage() {
             </Card.Link>
           </Card.Body>
         </Card>
+        <Card>
+          <Card.Header>Crear Noticias</Card.Header>
+          <Card.Body>
+            <Card.Link as={Link} to="admin-apcec/crear-noticia">
+              Crear Noticias
+            </Card.Link>
+          </Card.Body>
+        </Card>
       </CardGroup>
     </Container>
   );
