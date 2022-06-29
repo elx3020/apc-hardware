@@ -149,7 +149,11 @@ export const getProductbyCategory =
 export const getNews = () => async (dispatch) => {
   dispatch({ type: LOADING_UI });
   try {
-    const news = await API.graphql(graphqlOperation(listNews));
+    const news = await API.graphql({
+      query: listNews,
+      authMode: "API_KEY",
+      variables: { limit: 3 },
+    });
     dispatch({ type: GET_NEWS, payload: news.data.listNews.items });
   } catch (err) {
     console.error(err);
