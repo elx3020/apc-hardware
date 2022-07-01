@@ -11,6 +11,8 @@ export const LOADING_UI = "LOADING_UI";
 export const SHOW_DATA = "SHOW_DATA";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const LOADING_PRODUCTS = "LOADING_PRODUCTS";
+export const LOADING_IMAGES = "LOADING_IMAGES";
+export const SHOW_IMAGES = "SHOW_IMAGES";
 
 // Data reducer types
 export const GET_PRODUCTS = "GET_PRODUCTS";

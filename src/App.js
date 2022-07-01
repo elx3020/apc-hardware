@@ -123,9 +123,8 @@ function App() {
               <WarrantyPolicyPage />
             </Route>
 
-
             {/*--------------------------------------------------------------------------- admin routes --------------------------------------------------------------- */}
-            
+
             <Route exact path="/admin-apcec">
               <RequiredAuth>
                 <AdminPage />
@@ -142,12 +141,9 @@ function App() {
             <Route exact path="/admin-apcec/inventario">
               <InventarioPage />
             </Route>
-            <Route>
+            <Route exact path="/admin-apcec/crear-noticia">
               <CreateNewsPage />
             </Route>
-            
-
-
 
             <Route path="/*">
               <Page404 />

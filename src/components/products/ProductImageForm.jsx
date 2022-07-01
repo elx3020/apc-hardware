@@ -2,7 +2,7 @@ import React from "react";
 
 import "./style.scss";
 function ProductImageForm(props) {
-  const { index, src, alt, isThumbnail } = props;
+  const { id, url, src, alt, isThumbnail } = props;
 
   const thumbnailImageClass = isThumbnail
     ? "thumb-button active"
@@ -12,14 +12,16 @@ function ProductImageForm(props) {
       <img className="image-preview" src={src} alt={alt} />
       <div className="buttons-ui">
         <div
-          id={index}
+          id={id}
+          url={url}
           onClick={props.handleThumbnailSelection}
           className={thumbnailImageClass}
         >
           thumbnail
         </div>
         <div
-          id={index}
+          id={id}
+          url={url}
           onClick={props.handleDeleteImage}
           className="close-button"
         >

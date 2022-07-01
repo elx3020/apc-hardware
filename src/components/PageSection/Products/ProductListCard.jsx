@@ -12,7 +12,7 @@ function ProductListCard(props) {
     props;
 
   function editProduct() {
-    history.push(`/admin/editproduct/${id}`);
+    history.push(`/admin-apcec/editproduct/${id}`);
   }
 
   function handleCheck(e) {

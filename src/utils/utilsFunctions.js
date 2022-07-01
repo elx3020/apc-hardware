@@ -26,3 +26,14 @@ export function filterbyCategory(data, category, nItem) {
     return filterData2.slice(0, nItem);
   }
 }
+
+export function ImageThumbnail(value, array) {
+  const boolArray = array.map((item) => item === value);
+  const objectArray = array.map((item, index) => ({
+    src: array[index],
+    url: array[index],
+    thumbnailImage: boolArray[index],
+  }));
+
+  return objectArray;
+}

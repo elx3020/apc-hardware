@@ -7,6 +7,7 @@ import {
   SET_PRODUCT,
   GET_NEWS,
   SET_NEW,
+  LOADING_IMAGES,
 } from "../types.js";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -17,7 +18,11 @@ import {
 } from "../../graphql/custom-queries.js";
 import { getProducts, listProducts, listNews } from "../../graphql/queries";
 // mutations..
-import { createNews, createProducts } from "../../graphql/mutations.js";
+import {
+  createNews,
+  createProducts,
+  updateProducts,
+} from "../../graphql/mutations.js";
 
 // import { v4 as uuidv4 } from "uuid";
 
@@ -119,6 +124,48 @@ export const getProduct = (productID) => async (dispatch) => {
     console.error(err);
   }
 };
+
+// update product data
+
+export const updatedProductData = (productData) => async (dispatch) => {
+  dispatch({ type: LOADING_UI });
+
+  console.log(productData);
+
+  try {
+    const updateData = API.graphql(
+      graphqlOperation(updateProducts, { input: productData })
+    );
+
+    if (updateData) {
+      console.log("update with sucess");
+      dispatch({ type: SHOW_DATA });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// update product images
+
+export const updatedProductImages =
+  (productId, imagesArray, thumbnail) => async (dispatch) => {
+    dispatch({ type: LOADING_IMAGES });
+    try {
+      const inputObject =
+        thumbnail === undefined
+          ? { id: productId, images: imagesArray }
+          : { id: productId, images: imagesArray, thumbnailImage: thumbnail };
+
+      await API.graphql(
+        graphqlOperation(updateProducts, {
+          input: inputObject,
+        })
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 //get similar products
 

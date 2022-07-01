@@ -1,9 +1,19 @@
 import React from "react";
 
+import ProductTemplate from "../../components/products/ProductTemplate";
 
+import {useParams} from "react-router-dom"
 
 function EditProductPage() {
-  return <div>EditProductPage</div>;
+
+  const params = useParams();
+
+
+  return (
+    <div>
+      <ProductTemplate mode="update" productId={params.productId} />
+    </div>
+  );
 }
 
 export default EditProductPage;
