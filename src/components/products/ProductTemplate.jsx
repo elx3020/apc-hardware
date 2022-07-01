@@ -7,6 +7,7 @@ import { Authenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
 // components
 import ProductImageForm from "./ProductImageForm";
+import InputTagComponent from "../layout/Forms/InputTagComponent";
 // components bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -59,7 +60,7 @@ function ProductTemplate(props) {
   const [productDetails, setProductDetails] = useState(initialProductState);
   const [unModifiedProduct, setunModifiedProduct] = useState({});
 
-  //add redirect after
+  //add function responsable to submit data
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -92,7 +93,10 @@ function ProductTemplate(props) {
     setProductDetails(initialProductState);
   }
 
-  function handleCategory() {
+  // function responsable of updating categories
+
+  function handleCategory(e) {
+    console.log(e.target);
     const categoryText = document.getElementById("category-id");
     if (categoryText.value === "") return;
     setProductDetails({
@@ -101,23 +105,6 @@ function ProductTemplate(props) {
     });
     categoryText.value = "";
   }
-
-  // get upload images into the state of the component
-
-  // images get added and get a previzualization;
-
-  const addCategory = () => {
-    if (productDetails.categories.length > 0) {
-      const categoriesTag = productDetails.categories.map((category, index) => {
-        return (
-          <div key={index} className="category-item" onClick={removeCategory}>
-            <p>{category}</p>
-          </div>
-        );
-      });
-      return categoriesTag;
-    }
-  };
 
   const removeCategory = (e) => {
     setProductDetails({
@@ -225,8 +212,6 @@ function ProductTemplate(props) {
       console.error(err);
     }
   }
-
-  const categoriesTag = addCategory();
 
   const generatePreviewImages = () => {
     // console.log(imagesFile.map((img) => img.file));
@@ -415,15 +400,13 @@ function ProductTemplate(props) {
               }
               required
             />
-
-            {/* ----------------------------------------------------------------categorias------------------------------------------------------------------- */}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="category-id">
-            <Form.Label>Categoria</Form.Label>
-            <Form.Control type="text" placeholder="Escribe una categoria" />
-            <div className="category-wrapper">{categoriesTag}</div>
-          </Form.Group>
-          <Button onClick={handleCategory}>Añadir Categoria</Button>
+          {/* ----------------------------------------------------------------categorias------------------------------------------------------------------- */}
+          <InputTagComponent
+            categoryArray={productDetails.categories}
+            handleAdd={handleCategory}
+            handleRemove={removeCategory}
+          />
           {/* ----------------------------------------------------------------images------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productImages">
             <Form.Label>Imagenes</Form.Label>

@@ -74,7 +74,13 @@
   padding: 0.2vw 0.5vw;
   height: auto;
   border-radius: 5px;
+  cursor: pointer;
+
   p {
     margin: 0;
+  }
+
+  &:hover {
+    background: red;
   }
 }

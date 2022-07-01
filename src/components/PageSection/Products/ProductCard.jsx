@@ -16,9 +16,9 @@ export const ProductCard = (props) => {
   return (
     <Card
       style={{
-        maxWidth: "18%",
+        maxWidth: "25%",
         border: "none",
-        padding: "1% 1%",
+        padding: "0.5% 0.5%",
       }}
       // onClick={handleClick}
     >

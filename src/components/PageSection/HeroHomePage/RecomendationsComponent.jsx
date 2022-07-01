@@ -9,7 +9,7 @@ function RecomendationsComponent(props) {
   const recommendData = filterbyCategory(data, ["recomendado", "ratones"], 3);
 
   return (
-    <div>
+    <div style={{ width: "100%", height: "100%" }}>
       <h2>Recomendado...</h2>
       <ProductCardContainer category="recomendado" data={data} nItems={3} />
     </div>

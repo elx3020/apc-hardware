@@ -34,8 +34,8 @@ export const HomePage = (props) => {
         loading={loading}
       />
       <ProductCardContainer
-        category="cases"
-        titleCategory="PC Cases"
+        category="ssd"
+        titleCategory="SSD"
         data={products}
         nItems={3}
         loading={loading}

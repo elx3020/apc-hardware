@@ -41,7 +41,6 @@ function NewsCarrousel(props) {
   return (
     <div>
       <Carousel
-        fade
         activeIndex={index}
         onSelect={handleSelect}
         className="news-div"
