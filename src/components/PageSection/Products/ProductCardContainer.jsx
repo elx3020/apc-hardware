@@ -29,6 +29,7 @@ export const ProductCardContainer = (props) => {
             name={item.name}
             image={item.thumbnailImage}
             rating={item.rating}
+            numberRatings={item.numberRatings}
             price={item.price}
           />
         );

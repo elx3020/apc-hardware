@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 // components
 
 import Card from "react-bootstrap/Card";
+import RatingElement from "./RatingElement";
 
 export const ProductCard = (props) => {
-  const { id, name, price, image, rating } = props;
+  const { id, name, price, image, rating, numberRatings } = props;
 
   // function handleClick() {
   //   history.replace(`/products/${id}`);
@@ -16,9 +17,8 @@ export const ProductCard = (props) => {
   return (
     <Card
       style={{
-        maxWidth: "18%",
+        maxWidth: "14vw",
         border: "none",
-        padding: "1% 1%",
       }}
       // onClick={handleClick}
     >
@@ -31,42 +31,38 @@ export const ProductCard = (props) => {
         }}
       >
         <Card.Img
-          style={{ maxWidth: "150px" }}
+          style={{ height: "210px" }}
           src={image}
           alt={image}
           variant="top"
         />
       </div>
 
-      <Card.Title></Card.Title>
-      <Card.Body as={"table"} style={{ padding: "1%" }}>
-        <tbody>
-          <tr>
-            <td>
-              <span>{rating}</span>
-            </td>
-          </tr>
-          <tr style={{ fontSize: "22px" }}>
-            <td>
-              <span>$</span>
-              <span>{price}</span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <Link
-                to={`/products/${id}`}
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "110%",
-                  display: "inline-block",
-                }}
-              >
-                {name}
-              </Link>
-            </td>
-          </tr>
-        </tbody>
+      <Card.Body style={{ padding: "3%" }}>
+        <RatingElement
+          rating={rating}
+          numberRatings={numberRatings}
+          maxValue={5}
+        />
+
+        <span>
+          <Link
+            to={`/products/${id}`}
+            style={{
+              fontSize: "16px",
+              lineHeight: "110%",
+              display: "inline-block",
+              textDecoration: "none",
+            }}
+          >
+            {name}
+          </Link>
+        </span>
+
+        <div style={{ fontSize: "18px" }}>
+          <span>$</span>
+          <span>{price}</span>
+        </div>
       </Card.Body>
     </Card>
   );

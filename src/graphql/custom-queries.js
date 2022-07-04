@@ -10,6 +10,7 @@ export const listShortProducts = /* GraphQL */ `
         name
         price
         rating
+        numberRatings
         categories
         thumbnailImage
       }
