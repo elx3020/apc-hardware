@@ -24,3 +24,26 @@
     flex: 1;
   }
 }
+
+.flex-rating {
+  display: flex;
+  column-gap: 10%;
+
+  .rating-container {
+    position: relative;
+    width: 115px;
+    overflow: hidden;
+
+    .star-bar {
+      position: absolute;
+      height: 80%;
+      background: yellow;
+    }
+
+    svg {
+      top: 0;
+      position: relative;
+      z-index: 2;
+    }
+  }
+}
