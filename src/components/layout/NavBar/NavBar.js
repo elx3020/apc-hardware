@@ -137,6 +137,7 @@ const NavBar = (props) => {
             <NavDropdown.Item as={Link} to="/profile/test">
               Perfil
             </NavDropdown.Item>
+            <NavDropdown.Item onClick={logOut}>Cerrar Sesion</NavDropdown.Item>
           </NavDropdown>
           <Link to={contact}>Contacto</Link>
           <Link to={cart}>Carrito</Link>
