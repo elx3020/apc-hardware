@@ -7,7 +7,8 @@ import {
   SET_PRODUCT,
   GET_NEWS,
   SET_NEW,
-  LOADING_IMAGES,
+  GET_PRODUCTS_INVENTORY,
+  DELETE_PRODUCT_INVENTORY,
 } from "../types.js";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -22,17 +23,8 @@ import {
   createNews,
   createProducts,
   updateProducts,
+  deleteProducts,
 } from "../../graphql/mutations.js";
-
-// import { v4 as uuidv4 } from "uuid";
-
-// import queries from api
-
-// set loading /// --------------------------------------------- testing ---------------------------
-
-export const setLoading = () => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-};
 
 // actions needed
 
@@ -74,13 +66,19 @@ export const getShortProducts = () => async (dispatch) => {
 
 // get product inventory page
 
-export const getListProductsInventory = () => async (dispatch) => {
+export const getListProductsInventory = (options) => async (dispatch) => {
   dispatch({ type: LOADING_PRODUCTS });
 
   try {
-    const result = await API.graphql(graphqlOperation(listProductsInventory));
+    const result = await API.graphql(
+      graphqlOperation(listProductsInventory, { options })
+    );
     if (result) {
-      dispatch({ type: GET_PRODUCTS, payload: result.data.listProducts.items });
+      dispatch({
+        type: GET_PRODUCTS_INVENTORY,
+        payload: result.data.listProducts.items,
+        token: result.data.listProducts.nextToken,
+      });
     }
   } catch (err) {
     console.error(err);
@@ -130,42 +128,36 @@ export const getProduct = (productID) => async (dispatch) => {
 export const updatedProductData = (productData) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
 
-  console.log(productData);
-
   try {
     const updateData = API.graphql(
       graphqlOperation(updateProducts, { input: productData })
     );
 
     if (updateData) {
-      console.log("update with sucess");
       dispatch({ type: SHOW_DATA });
+      alert(`${productData.name} ha sido actualizado exitosamente`);
     }
   } catch (err) {
     console.log(err);
   }
 };
 
-// update product images
+// ---------------------------------------------- delete product  ---------------------------------------------
 
-export const updatedProductImages =
-  (productId, imagesArray, thumbnail) => async (dispatch) => {
-    dispatch({ type: LOADING_IMAGES });
-    try {
-      const inputObject =
-        thumbnail === undefined
-          ? { id: productId, images: imagesArray }
-          : { id: productId, images: imagesArray, thumbnailImage: thumbnail };
-
-      await API.graphql(
-        graphqlOperation(updateProducts, {
-          input: inputObject,
-        })
-      );
-    } catch (err) {
-      console.error(err);
+export const deleteProduct = (productId) => async (dispatch) => {
+  // productId shape {id: productId}
+  try {
+    const deleteData = API.graphql(
+      graphqlOperation(deleteProducts, { input: productId })
+    );
+    if (deleteData) {
+      console.log(deleteData);
+      dispatch({ type: DELETE_PRODUCT_INVENTORY, payload: productId.id });
     }
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 //get similar products
 

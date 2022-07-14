@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { v4 as uuidv4 } from "uuid";
 // aws-amplify
 import { API, graphqlOperation, Storage } from "aws-amplify";
-import { Authenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
 // components
 import ProductImageForm from "./ProductImageForm";
@@ -12,33 +10,35 @@ import InputTagComponent from "../layout/Forms/InputTagComponent";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 // redux
 import { connect } from "react-redux";
 import {
   addProduct,
   getProduct,
-  updatedProductImages,
   updatedProductData,
 } from "../../Redux/actions/dataActions";
 
 // helper functions
 
 import { ImageThumbnail } from "../../utils/utilsFunctions";
-
 import "./style.scss";
-
 // get region and bucket address
 import config from "../../aws-exports";
 
+// config bucket aws
 const {
   aws_user_files_s3_bucket_region: region,
   aws_user_files_s3_bucket: bucket,
 } = config;
 
+// Product Template Component
 function ProductTemplate(props) {
-  const { mode, product, loading, productId } = props;
+  // props
+  const { mode, product, loading, productId, redirect } = props;
 
+  // initial state
   const initialProductState = {
     name: "",
     price: "",
@@ -56,7 +56,8 @@ function ProductTemplate(props) {
 
   // components states
   const [componentMode, setComponentMode] = useState("");
-  const [imagesFile, setImagesFile] = useState([]);
+  const [imagesFilesToUpload, setImagesFileToUpload] = useState([]);
+  const [imageToRemove, setImageToRemove] = useState([]);
   const [productDetails, setProductDetails] = useState(initialProductState);
   const [unModifiedProduct, setunModifiedProduct] = useState({});
 
@@ -66,37 +67,37 @@ function ProductTemplate(props) {
     e.preventDefault();
 
     let newImagesArray = updateImageArray();
-
     const dataToUpload = {
       ...productDetails,
       images: [...productDetails.images, ...newImagesArray],
     };
     if (componentMode === "create") {
       // update images url to the product details object
-
-      // submit data... send productDetails
-      props.addProduct(dataToUpload);
       // upload images to the bucket
       handleImageUpload(e);
+      // submit data... send productDetails
+      props.addProduct(dataToUpload);
       // clear form and notify success or failure
       handleClear();
+      redirect();
     } else if (componentMode === "update") {
       const updateData = { id: product.id, ...dataToUpload };
       handleImageUpload(e);
+      removeImages();
       props.updatedProductData(updateData);
+      redirect();
     }
   }
 
   function handleClear() {
     document.getElementById("create-product-form").reset();
-    setImagesFile([]);
+    setImagesFileToUpload([]);
     setProductDetails(initialProductState);
   }
 
   // function responsable of updating categories
 
   function handleCategory(e) {
-    console.log(e.target);
     const categoryText = document.getElementById("category-id");
     if (categoryText.value === "") return;
     setProductDetails({
@@ -116,8 +117,7 @@ function ProductTemplate(props) {
   };
 
   const updateImageArray = () => {
-    const arrImages = [...imagesFile].map((image) => image.url);
-    // setProductDetails({ ...productDetails, images: arrImages });
+    const arrImages = [...imagesFilesToUpload].map((image) => image.url);
     return arrImages;
   };
 
@@ -125,12 +125,10 @@ function ProductTemplate(props) {
     e.preventDefault();
     const { url, key } = generateImageUrl(e);
 
-    setImagesFile([
-      ...imagesFile,
+    setImagesFileToUpload([
+      ...imagesFilesToUpload,
       { file: e.target.files[0], thumbnailImage: false, url: url, key: key },
     ]);
-
-    updateImageArray();
   };
 
   const generateImageUrl = (e) => {
@@ -144,18 +142,17 @@ function ProductTemplate(props) {
 
   function handleThumbnailSelection(e) {
     if (componentMode === "create") {
-      let imageFiles = [...imagesFile];
+      let imageFiles = [...imagesFilesToUpload];
       for (let i = 0; i < imageFiles.length; i++) {
         imageFiles[i].thumbnailImage = false;
       }
 
       // imageFiles = imageFiles.map((item) => item["thumbnailImage"] = false);
       imageFiles[e.target.id].thumbnailImage = true;
-      setImagesFile(imageFiles);
+      setImagesFileToUpload(imageFiles);
       const tumbnailImage = imageFiles[e.target.id].url;
       setProductDetails({ ...productDetails, thumbnailImage: tumbnailImage });
     } else if (componentMode === "update") {
-      console.log("hey");
       setProductDetails({
         ...productDetails,
         thumbnailImage: productDetails.images[e.target.id],
@@ -164,61 +161,56 @@ function ProductTemplate(props) {
   }
 
   function FilterImageFile(e) {
-    setImagesFile(
-      imagesFile.filter((item, index) => {
+    setImagesFileToUpload(
+      imagesFilesToUpload.filter((item, index) => {
         return item.url !== e.target.attributes.url.nodeValue;
       })
     );
   }
 
-  function handleDeleteImage(e) {
-    if (componentMode === "create") {
-      FilterImageFile(e);
-    } else if (componentMode === "update") {
-      if (imagesFile.length > 0) {
-        FilterImageFile(e);
-      }
-      removeImages(e);
+  function removeImages() {
+    if (imageToRemove.length > 0) {
+      imageToRemove.forEach(async (imageKey) => {
+        const key = imageKey.split("public/")[1];
+        try {
+          // remove image from bucket
+          await Storage.remove(key, { level: "public" });
+        } catch (err) {
+          console.error(err);
+        }
+      });
     }
   }
 
-  async function removeImages(e) {
-    if (productDetails.images[e.target.id] === undefined) return;
-    let filename = productDetails.images[e.target.id];
-    filename = filename.split("public/")[1];
-    const key = filename;
-    console.log(key);
+  function handleRemoveImages(e) {
+    if (componentMode === "create") {
+      FilterImageFile(e);
+    } else if (componentMode === "update") {
+      if (imagesFilesToUpload.length > 0) {
+        FilterImageFile(e);
+      }
 
-    try {
-      // remove image from bucket
-      await Storage.remove(key, { level: "public" });
-
-      // remove images from client data
-      // remove image from array
-      const removeImageArray = productDetails.images.filter((item, index) => {
-        return index.toString() !== e.target.id;
-      });
-      // remove thumbnail reference is the image was the thumbnail image
-      if (
-        productDetails.thumbnailImage === productDetails.images[e.target.id]
-      ) {
+      if (productDetails.images[e.target.id] === undefined) return;
+      const url = productDetails.images[e.target.id];
+      setImageToRemove([...imageToRemove, url]);
+      if (productDetails.thumbnailImage === url) {
         setProductDetails({ ...productDetails, thumbnailImage: "" });
       }
-      setProductDetails({ ...productDetails, images: removeImageArray });
+      console.log(url);
 
-      // remove image from database
-      props.updatedProductImages(product.id, removeImageArray);
-    } catch (err) {
-      console.error(err);
+      setProductDetails({
+        ...productDetails,
+        images: productDetails.images.filter(
+          (image, index) => index.toString() !== e.target.id
+        ),
+      });
     }
   }
 
   const generatePreviewImages = () => {
-    // console.log(imagesFile.map((img) => img.file));
-    // imagesFile.length > 0
     if (componentMode === "create") {
-      if (imagesFile.length > 0) {
-        const imageObject = imagesFile.map((imageFile, index) => {
+      if (imagesFilesToUpload.length > 0) {
+        const imageObject = imagesFilesToUpload.map((imageFile, index) => {
           const src = URL.createObjectURL(imageFile.file);
           return (
             <ProductImageForm
@@ -229,7 +221,7 @@ function ProductTemplate(props) {
               url={imageFile.url}
               alt={imageFile.file.name.split(".")[0]}
               handleThumbnailSelection={handleThumbnailSelection}
-              handleDeleteImage={handleDeleteImage}
+              handleDeleteImage={handleRemoveImages}
             />
           );
         });
@@ -245,8 +237,8 @@ function ProductTemplate(props) {
           productDetails.thumbnailImage,
           productDetails.images
         );
-        if (imagesFile.length > 0) {
-          const previewFiles = imagesFile.map((item) => {
+        if (imagesFilesToUpload.length > 0) {
+          const previewFiles = imagesFilesToUpload.map((item) => {
             const src = URL.createObjectURL(item.file);
             return {
               src: src,
@@ -267,7 +259,7 @@ function ProductTemplate(props) {
               url={item.url}
               alt={"preview"}
               handleThumbnailSelection={handleThumbnailSelection}
-              handleDeleteImage={handleDeleteImage}
+              handleDeleteImage={handleRemoveImages}
             />
           );
         });
@@ -280,11 +272,11 @@ function ProductTemplate(props) {
 
   // handle image upload
   const handleImageUpload = async () => {
-    if (imagesFile.length < 1) return;
+    if (imagesFilesToUpload.length < 1) return;
 
-    for (let i = 0; i < imagesFile.length; i++) {
-      const file = imagesFile[i].file;
-      const { key, url } = imagesFile[i];
+    for (let i = 0; i < imagesFilesToUpload.length; i++) {
+      const file = imagesFilesToUpload[i].file;
+      const { key, url } = imagesFilesToUpload[i];
 
       try {
         await Storage.put(key, file, {
@@ -308,7 +300,10 @@ function ProductTemplate(props) {
     }
   }, [componentMode]);
 
-  // not been use but the idea is to compare the data and update only the one that is neccesary
+  useEffect(() => {
+    setProductDetails(initialProductState);
+  }, []);
+
   useEffect(() => {
     if (product === undefined) return;
 
@@ -329,14 +324,36 @@ function ProductTemplate(props) {
       };
 
       setProductDetails({ ...productDetails, ...fetchedProduct });
-      setunModifiedProduct(fetchedProduct);
+      // not been use but the idea is to compare the data and update only the one that is neccesary
+      // setunModifiedProduct(fetchedProduct);
     }
   }, [product]);
+
+  const componentTitle =
+    componentMode === "create" ? "Crear Producto" : "Modificar Producto";
+
+  const formButtons =
+    componentMode === "create" ? (
+      <div>
+        <Button variant="primary" type="submit">
+          Crear Producto
+        </Button>{" "}
+        <Button variant="danger" onClick={handleClear}>
+          Limpiar Formulario
+        </Button>
+      </div>
+    ) : (
+      <div>
+        <Button variant="primary" type="submit">
+          Aplicar Cambios
+        </Button>{" "}
+      </div>
+    );
 
   return (
     <div>
       <Container style={{ padding: "3% 0" }}>
-        <h2>Crear Producto</h2>
+        <h1>{componentTitle}</h1>
         <Form id="create-product-form" onSubmit={handleSubmit}>
           {/*----------------------------------------------------------------- Nombre------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productName">
@@ -351,56 +368,78 @@ function ProductTemplate(props) {
               required
             />
           </Form.Group>
-          {/*----------------------------------------------------------------- Precio-------------------------------------------------------------------- */}
-          <Form.Group className="mb-3" controlId="productPrice">
-            <Form.Label>Precio</Form.Label>
-            <Form.Control
-              type="number"
-              step="0.01"
-              placeholder="Precio"
-              value={productDetails.price}
-              onChange={(e) =>
-                setProductDetails({
-                  ...productDetails,
-                  price: e.target.value,
-                })
-              }
-              required
-            />
-            {/* Cantidad */}
-          </Form.Group>
-          {/* ----------------------------------------------------------------Cantidad------------------------------------------------------------------- */}
-          <Form.Group className="mb-3" controlId="productQuantity">
-            <Form.Label>Cantidad</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Cantidad"
-              value={productDetails.quantity}
-              onChange={(e) =>
-                setProductDetails({
-                  ...productDetails,
-                  quantity: e.target.value,
-                })
-              }
-              required
-            />
-          </Form.Group>
-          {/* ----------------------------------------------------------------modelo------------------------------------------------------------------------ */}
-          <Form.Group className="mb-3" controlId="productModel">
-            <Form.Label>Modelo</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Modelo"
-              value={productDetails.model}
-              onChange={(e) =>
-                setProductDetails({
-                  ...productDetails,
-                  model: e.target.value,
-                })
-              }
-              required
-            />
-          </Form.Group>
+          {/*----------------------------------------------------------------- Precio y cantidad-------------------------------------------------------------------- */}
+
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="productPrice">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.01"
+                placeholder="Precio"
+                value={productDetails.price}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    price: e.target.value,
+                  })
+                }
+                required
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="productQuantity">
+              <Form.Label>Cantidad</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Cantidad"
+                value={productDetails.quantity}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    quantity: e.target.value,
+                  })
+                }
+                required
+              />
+            </Form.Group>
+          </Row>
+
+          {/* ----------------------------------------------------------------modelo y faabricante------------------------------------------------------------------------ */}
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="productModel">
+              <Form.Label>Modelo</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Modelo"
+                value={productDetails.model}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    model: e.target.value,
+                  })
+                }
+                required
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="manufacturer">
+              <Form.Label>Fabricante</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Fabricante"
+                value={productDetails.manufacturer}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    manufacturer: e.target.value,
+                  })
+                }
+                required
+              />
+            </Form.Group>
+          </Row>
+
           {/* ----------------------------------------------------------------categorias------------------------------------------------------------------- */}
           <InputTagComponent
             categoryArray={productDetails.categories}
@@ -419,21 +458,7 @@ function ProductTemplate(props) {
             <div className="form-image">{previewImages}</div>
           </Form.Group>
           {/* ----------------------------------------------------------------fabricante------------------------------------------------------------------- */}
-          <Form.Group className="mb-3" controlId="manufacturer">
-            <Form.Label>Fabricante</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Fabricante"
-              value={productDetails.manufacturer}
-              onChange={(e) =>
-                setProductDetails({
-                  ...productDetails,
-                  manufacturer: e.target.value,
-                })
-              }
-              required
-            />
-          </Form.Group>
+
           {/* ----------------------------------------------------------------descripcion------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productDescription">
             <Form.Label>Descripcion</Form.Label>
@@ -466,10 +491,7 @@ function ProductTemplate(props) {
               }
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Crear Producto
-          </Button>{" "}
-          <Button onClick={handleClear}>Limpiar Formulario</Button>
+          {formButtons}
         </Form>
       </Container>
     </div>
@@ -484,7 +506,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   addProduct,
   getProduct,
-  updatedProductImages,
   updatedProductData,
 };
 

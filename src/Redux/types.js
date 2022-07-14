@@ -21,6 +21,8 @@ export const SET_PRODUCT = "SET_PRODUCT";
 export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
 export const GET_NEWS = "GET_NEWS";
 export const SET_NEW = "SET_NEW";
+export const GET_PRODUCTS_INVENTORY = "GET_PRODUCTS_INVENTORY";
+export const DELETE_PRODUCT_INVENTORY = "DELETE_PRODUCT_INVENTORY";
 
 // export const SET_POST = "SET_POST";
 // export const DELETE_POST = "DELETE_POST";

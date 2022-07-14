@@ -8,23 +8,31 @@
   column-gap: 2vw;
 }
 
+// --------------------------------------------------- CardList style ---------------------------------------------------------------------
+
 .card-list {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-height: 200px;
+  height: 210px;
   background-color: white;
-  padding: 2vw;
+  padding: 1vw;
   column-gap: 2vw;
   .img-wrapper-list {
-    max-width: 150px;
+    width: 220px;
+    height: 100%;
   }
   .card-text {
     flex: 1;
   }
+  .buttons-wrapper {
+    display: flex;
+    column-gap: 10px;
+  }
 }
 
+// --------------------------------------------------- Rating style- ---------------------------------------------------------------------
 .flex-rating {
   display: flex;
   column-gap: 10%;

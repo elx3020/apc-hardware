@@ -8,15 +8,22 @@ import { useHistory } from "react-router-dom";
 import "./style.scss";
 function ProductListCard(props) {
   const history = useHistory();
-  const { id, name, quantity, price, loading, image, addItem, toggleSelect } =
-    props;
+  const {
+    id,
+    name,
+    quantity,
+    price,
+    loading,
+    image,
+    handleSelection,
+    isSelected,
+    toggleSelect,
+    categories,
+    deleteProduct,
+  } = props;
 
   function editProduct() {
     history.push(`/admin-apcec/editproduct/${id}`);
-  }
-
-  function handleCheck(e) {
-    addItem(e);
   }
 
   const checkBox = toggleSelect ? (
@@ -24,35 +31,64 @@ function ProductListCard(props) {
       <Form.Check
         type="checkbox"
         id={id}
-        onChange={(e) => handleCheck(e)}
+        checked={isSelected}
+        onChange={(e) => handleSelection(e)}
       ></Form.Check>
     </Form>
   ) : null;
 
+  let categoriesString = "";
+  for (let i = 0; i < categories.length; i++) {
+    categoriesString += `${categories[i]}/`;
+  }
+
   const cardContent = loading ? (
     <div>Loading...</div>
   ) : (
-    <Container>
-      <div className="card-list-wrapper">
-        {checkBox}
+    <div className="card-list-wrapper">
+      {checkBox}
 
-        <div className="card-list">
-          <div className="img-wrapper-list">
-            <img src={image} alt="product" />
-          </div>
-          <div className="card-text">
-            <tbody>
-              <tr>{name}</tr>
-              <tr>{`Cantidad: ${quantity}`}</tr>
-              <tr>{`$ ${price}`}</tr>
-            </tbody>
-          </div>
-          <div className="buttons-wrapper">
-            <Button onClick={editProduct}>Editar</Button>
-          </div>
+      <div className="card-list">
+        <div className="img-wrapper-list">
+          <img src={image} alt="product" />
+        </div>
+        <table className="card-text">
+          <tbody>
+            <tr>
+              <td>
+                <b>Nombre: </b>
+                {name}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Cantidad: </b>
+                {quantity}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Precio: </b>
+                {`$ ${price}`}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>Categorias: </b>
+                {categoriesString}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div className="buttons-wrapper">
+          <Button onClick={editProduct}>Editar</Button>
+          {""}
+          <Button variant="danger" id={id} onClick={deleteProduct}>
+            Borrar
+          </Button>
         </div>
       </div>
-    </Container>
+    </div>
   );
 
   return cardContent;
