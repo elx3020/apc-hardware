@@ -43,6 +43,7 @@ export const ProductCard = (props) => {
           rating={rating}
           numberRatings={numberRatings}
           maxValue={5}
+          backgroundColor={"white"}
         />
 
         <span>

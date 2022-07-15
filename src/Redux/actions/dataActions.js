@@ -107,7 +107,7 @@ export const addProduct = (productData) => async (dispatch) => {
 // get a complete product
 
 export const getProduct = (productID) => async (dispatch) => {
-  dispatch({ type: LOADING_PRODUCTS });
+  dispatch({ type: LOADING_UI });
   try {
     const product = await API.graphql({
       query: getProducts,
@@ -117,6 +117,7 @@ export const getProduct = (productID) => async (dispatch) => {
 
     if (product) {
       dispatch({ type: GET_PRODUCT, payload: product.data.getProducts });
+      dispatch({ type: SHOW_DATA });
     }
   } catch (err) {
     console.error(err);

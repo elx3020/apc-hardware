@@ -14,11 +14,10 @@ import Container from "react-bootstrap/esm/Container";
 import Accordion from "react-bootstrap/Accordion";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Figure from "react-bootstrap/Figure";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import ProductCardContainer from "../../components/PageSection/Products/ProductCardContainer";
+import RatingElement from "../../components/PageSection/Products/RatingElement";
+import ProductDescripionImages from "../../components/products/ProductDescriptionImages";
 
 import "./style.scss";
 
@@ -27,24 +26,22 @@ export const ProductDescriptionPage = (props) => {
   const { productId } = useParams();
   const { product, products, loading } = props;
 
-  const {
-    name,
-    price,
-    rating,
-    numberRatings,
-    categories,
-    images,
-    description,
-    thumbnailImage,
-  } = product;
+  const { name, price, rating, numberRatings, categories, description } =
+    product;
 
   useEffect(() => {
     props.getProduct(productId);
-    if (products.length < 1) {
-      console.log("find products");
-      props.getProductbyCategory(categories[0], productId);
-    }
-  }, [productId]);
+    // if (products.length < 1) {
+    //   console.log("find products");
+    //   props.getProductbyCategory(categories[0], productId);
+    // }
+  }, []);
+
+  const productImages = loading ? (
+    <div>Loading...</div>
+  ) : (
+    <ProductDescripionImages />
+  );
 
   const productOption = false ? (
     <Form>
@@ -70,15 +67,19 @@ export const ProductDescriptionPage = (props) => {
           {/* main product description */}
 
           <section className="flex-section product-info">
-            <div className="img-wrapper">
-              <img src={thumbnailImage } alt="product" />
-            </div>
+            {productImages}
             <div className="product-details">
               <header>
-                <h2>{name}</h2>
+                <h1>{name}</h1>
                 <div className="product-rating">
-                  <div>{rating}</div>
-                  <div>{numberRatings}</div>
+                  <div>
+                    <RatingElement
+                      rating={rating}
+                      numberRatings={numberRatings}
+                      maxValue={5}
+                      backgroundColor={"rgb(239, 239, 239)"}
+                    />
+                  </div>
                 </div>
               </header>
               <div className="price-wrapper">
@@ -87,7 +88,7 @@ export const ProductDescriptionPage = (props) => {
               </div>
               {productOption}
               <div>
-                <InputGroup className="quantity">
+                <InputGroup className="mb-3">
                   <Button
                     variant="outline-secondary"
                     id="button-addon1"
@@ -102,10 +103,10 @@ export const ProductDescriptionPage = (props) => {
                   >
                     -
                   </Button>
+
                   <FormControl
                     readOnly
-                    aria-label="Example text with button addon"
-                    aria-describedby="basic-addon1"
+                    aria-label="cantidad de productos"
                     value={quantity}
                   />
                   <Button
@@ -119,12 +120,14 @@ export const ProductDescriptionPage = (props) => {
                   >
                     +
                   </Button>
+                  <Button>Añadir al Carrito</Button>
                 </InputGroup>
-                <Button>Añadir al Carrito</Button>
               </div>
 
               <ul className="about-item">
-                <li>{description}</li>
+                <li>Aqui va la oracion 1 corta que describe el producto</li>
+                <li>Aqui va la oracion 2 corta que describe el producto</li>
+                <li>Aqui va la oracion 3 corta que describe el producto</li>
               </ul>
             </div>
           </section>
@@ -162,7 +165,7 @@ export const ProductDescriptionPage = (props) => {
 const mapStateToProps = (state) => ({
   product: state.data.productDescription,
   products: state.data.products,
-  loading: state.data.loading,
+  loading: state.ui.loading,
 });
 
 const mapDispatchToProps = {
