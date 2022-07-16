@@ -10,40 +10,51 @@ import Button from "react-bootstrap/Button";
 
 function Footer() {
   return (
-    <div style={{ backgroundColor: "black", padding: "5% 0", color: "white" }}>
+    <div className="footer-container">
       <Container>
         <Row>
           <Col xs>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3>Politicas</h3>
 
-              <Nav.Link as={Link} to="/privacy-policy">
-                Privacidad y Condiciones
-              </Nav.Link>
-              <Nav.Link as={Link} to="/delivery-policy">
-                Politicas de Envio
-              </Nav.Link>
-              <Nav.Link as={Link} to="/warranty-policy">
-                Politicas de Garantia
-              </Nav.Link>
+              <ul>
+                <li>
+                  <Nav.Link as={Link} to="/privacy-policy">
+                    Privacidad y Condiciones
+                  </Nav.Link>
+                </li>
+
+                <li>
+                  <Nav.Link as={Link} to="/delivery-policy">
+                    Politicas de Envio
+                  </Nav.Link>
+                </li>
+
+                <li>
+                  <Nav.Link as={Link} to="/warranty-policy">
+                    Politicas de Garantia
+                  </Nav.Link>
+                </li>
+              </ul>
             </div>
           </Col>
           <Col xs={{ order: 12 }}>
             <div>
               <h3>Suscribete:</h3>
               <Form>
+                <Form.Group className="mb-3" controlId="formName">
+                  <Form.Label>Nombre</Form.Label>
+                  <Form.Control type="text" placeholder="Nombre" />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
+                  <Form.Label>Correo Electronico</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" />
                   <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
+                    Unete para recibir promociones y notificaciones.
                   </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
+
+                <Button variant="success" type="submit">
                   Enviar
                 </Button>
               </Form>
@@ -52,16 +63,26 @@ function Footer() {
           <Col xs={{ order: 1 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <h3>Social:</h3>
-              <a href="#">Facebook</a>
-              <a href="#">Mercado Libre</a>
-              <a href="#">Twitter</a>
-              <a href="#">Instagram</a>
+              <ul>
+                <li>
+                  <a href="https://www.facebook.com/APCHARDWAREC">Facebook</a>
+                </li>
+                <li>
+                  <a href="https://www.mercadolibre.com.ec/perfil/APC+HARDWARE-UIO">
+                    Mercado Libre
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Instagram</a>
+                </li>
+              </ul>
             </div>
           </Col>
         </Row>
       </Container>
-
-      {/* newsletter form */}
+      <Row>
+        <p>&copy; APCEC . Todos los derechos 2022 </p>
+      </Row>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+@import "../../../Scss/mixins.scss";
+@import "../../../Scss/variables.scss";
+
+.footer-container {
+  background-color: $mainColorElements;
+  padding-top: 2vw;
+  width: 100%;
+  overflow: hidden;
+  color: $quaternaryColor;
+  a {
+    color: $quaternaryColor;
+  }
+  p {
+    text-align: center;
+  }
+}

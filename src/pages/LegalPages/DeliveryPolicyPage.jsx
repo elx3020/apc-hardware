@@ -1,8 +1,7 @@
 import React from "react";
-import PageMarker from "../../components/layout/PageFiller/PageMarker";
 
 import Container from "react-bootstrap/Container";
-
+import GoToTop from "../../components/utils/GoToTop";
 import TextComponent from "../../components/PageSection/SectionText/TextComponent";
 
 const textDelivery = `El envío del producto solicitado se realizará en el término de 24 horas a partir de recibirse la confirmación de pago por parte del cliente, a este tiempo se sumará el que le tome al transportista entregarlo en la dirección establecida por el cliente en su pedido.
@@ -13,6 +12,7 @@ function DeliveryPolicyPage() {
   return (
     <div>
       <TextComponent title="Politicas de Envio" text={textDelivery} />
+      <GoToTop />
     </div>
   );
 }

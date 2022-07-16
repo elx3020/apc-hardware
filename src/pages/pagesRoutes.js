@@ -9,7 +9,7 @@ export const pagesRoutes = {
   tickets: "/:user/tickets",
   products: "/products/:productId",
   calculator: "/pc-calculator",
-  deliveryPolicy: "/privacy-policy",
-  privatePolicy: "/delivery-policy",
+  deliveryPolicy: "/delivery-policy",
+  privatePolicy: "/privacy-policy",
   warrantyPolicy: "/warranty-policy",
 };

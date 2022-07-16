@@ -26,11 +26,16 @@ export const ProductDescriptionImages = (props) => {
     setImageIndex(e.target.id);
   }
 
+  const largeImage =
+    images === undefined ? (
+      <div>Loading</div>
+    ) : (
+      <img src={images[imageIndex]} alt="product" />
+    );
+
   return (
     <div className="images-shower-container">
-      <div className="img-wrapper">
-        <img src={images[imageIndex]} alt="product" />
-      </div>
+      <div className="img-wrapper">{largeImage}</div>
 
       <div className="imgs-row">{imagesSmall}</div>
     </div>

@@ -26,8 +26,16 @@ export const ProductDescriptionPage = (props) => {
   const { productId } = useParams();
   const { product, products, loading } = props;
 
-  const { name, price, rating, numberRatings, categories, description } =
-    product;
+  const {
+    name,
+    price,
+    rating,
+    numberRatings,
+    categories,
+    description,
+    model,
+    manufacturer,
+  } = product;
 
   useEffect(() => {
     props.getProduct(productId);
@@ -68,74 +76,90 @@ export const ProductDescriptionPage = (props) => {
 
           <section className="flex-section product-info">
             {productImages}
+
+            {/* product Description */}
             <div className="product-details">
-              <header>
+              <header className="product-header">
                 <h1>{name}</h1>
                 <div className="product-rating">
-                  <div>
-                    <RatingElement
-                      rating={rating}
-                      numberRatings={numberRatings}
-                      maxValue={5}
-                      backgroundColor={"rgb(239, 239, 239)"}
-                    />
-                  </div>
+                  <RatingElement
+                    rating={rating}
+                    numberRatings={numberRatings}
+                    maxValue={5}
+                    backgroundColor={"rgb(239, 239, 239)"}
+                  />
                 </div>
+                <table>
+                  <tr>
+                    <th>Modelo:</th>
+                    <td>{model}</td>
+                  </tr>
+                  <tr>
+                    <th>Marca:</th>
+                    <td>{manufacturer}</td>
+                  </tr>
+                </table>
               </header>
               <div className="price-wrapper">
+                <div>
+                  <span style={{ color: "darkgray" }}>$ {price}</span>
+                </div>
                 {discount}
-                <span className="price-tag">$ {price}</span>
+                <span className="price-tag">$ {price}</span>{" "}
+                <span> ( Precio PROMO para efectivo o transferencia )</span>
               </div>
               {productOption}
-              <div>
-                <InputGroup className="mb-3">
-                  <Button
-                    variant="outline-secondary"
-                    id="button-addon1"
-                    onClick={() => {
-                      setQuantity((prev) => {
-                        if (prev > 1) {
-                          return prev - 1;
-                        }
-                        return prev;
-                      });
-                    }}
-                  >
-                    -
-                  </Button>
-
-                  <FormControl
-                    readOnly
-                    aria-label="cantidad de productos"
-                    value={quantity}
-                  />
-                  <Button
-                    variant="outline-secondary"
-                    id="button-addon1"
-                    onClick={() => {
-                      setQuantity((prev) => {
-                        return prev + 1;
-                      });
-                    }}
-                  >
-                    +
-                  </Button>
-                  <Button>Añadir al Carrito</Button>
-                </InputGroup>
-              </div>
 
               <ul className="about-item">
                 <li>Aqui va la oracion 1 corta que describe el producto</li>
                 <li>Aqui va la oracion 2 corta que describe el producto</li>
                 <li>Aqui va la oracion 3 corta que describe el producto</li>
               </ul>
+
+              <InputGroup style={{ width: "60%" }}>
+                <Button
+                  variant="outline-secondary"
+                  id="button-addon1"
+                  onClick={() => {
+                    setQuantity((prev) => {
+                      if (prev > 1) {
+                        return prev - 1;
+                      }
+                      return prev;
+                    });
+                  }}
+                >
+                  -
+                </Button>
+
+                <FormControl
+                  readOnly
+                  aria-label="cantidad de productos"
+                  value={quantity}
+                />
+                <Button
+                  variant="outline-secondary"
+                  id="button-addon1"
+                  onClick={() => {
+                    setQuantity((prev) => {
+                      return prev + 1;
+                    });
+                  }}
+                >
+                  +
+                </Button>
+                <Button>Añadir al Carrito</Button>
+              </InputGroup>
             </div>
           </section>
 
           <Accordion alwaysOpen defaultActiveKey="0">
             <Accordion.Item eventKey="0">
               <Accordion.Header>Descripcion</Accordion.Header>
-              <Accordion.Body>{description}</Accordion.Body>
+              <Accordion.Body>
+                {" "}
+                <p>{description}</p>
+              </Accordion.Body>
             </Accordion.Item>
           </Accordion>
           <section>

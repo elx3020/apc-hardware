@@ -21,7 +21,9 @@ export const HomePage = (props) => {
   }, []);
 
   const pageContent = loading ? (
-    <h1>Loading Page..</h1>
+    <div style={{ height: "100vh" }}>
+      <h1>Loading Page..</h1>
+    </div>
   ) : (
     <Container>
       <HeroHomePage data={products} />

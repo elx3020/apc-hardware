@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import "./Scss/variables.scss";
 @import "./components/products/style_ProductDescriptionImage.scss";
+@import "./components/layout/Footer/styleFooter.scss";
 
 body {
   background-color: $tercearyColor;
