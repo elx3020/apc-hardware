@@ -144,7 +144,7 @@ export const updatedProductData = (productData) => async (dispatch) => {
       alert(`${productData.name} ha sido actualizado exitosamente`);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -157,7 +157,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
       graphqlOperation(deleteProducts, { input: productId })
     );
     if (deleteData) {
-      console.log(deleteData);
+      // console.log(deleteData);
       dispatch({ type: DELETE_PRODUCT_INVENTORY, payload: productId.id });
     }
   } catch (err) {

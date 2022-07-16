@@ -18,8 +18,10 @@ export const createProducts = /* GraphQL */ `
       thumbnailImage
       images
       manufacturer
+      shortDescription
       description
       discountStatus
+      discountAmount
       createdAt
       updatedAt
     }
@@ -42,8 +44,10 @@ export const updateProducts = /* GraphQL */ `
       thumbnailImage
       images
       manufacturer
+      shortDescription
       description
       discountStatus
+      discountAmount
       createdAt
       updatedAt
     }
@@ -66,8 +70,10 @@ export const deleteProducts = /* GraphQL */ `
       thumbnailImage
       images
       manufacturer
+      shortDescription
       description
       discountStatus
+      discountAmount
       createdAt
       updatedAt
     }

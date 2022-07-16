@@ -47,11 +47,11 @@
       "function": {
         "processPayment": {
           "deploymentBucketName": "amplify-apchardware-prod-85507-deployment",
-          "s3Key": "amplify-builds/processPayment-6d6746307a46307a3849-build.zip"
+          "s3Key": "amplify-builds/processPayment-6266343466695a6e566b-build.zip"
         },
         "createOrder": {
           "deploymentBucketName": "amplify-apchardware-prod-85507-deployment",
-          "s3Key": "amplify-builds/createOrder-4c7139465857726b6f6e-build.zip"
+          "s3Key": "amplify-builds/createOrder-7235425a7173336c4142-build.zip"
         }
       }
     }

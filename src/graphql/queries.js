@@ -15,8 +15,10 @@ export const getProducts = /* GraphQL */ `
       thumbnailImage
       images
       manufacturer
+      shortDescription
       description
       discountStatus
+      discountAmount
       createdAt
       updatedAt
     }
@@ -41,8 +43,10 @@ export const listProducts = /* GraphQL */ `
         thumbnailImage
         images
         manufacturer
+        shortDescription
         description
         discountStatus
+        discountAmount
         createdAt
         updatedAt
       }

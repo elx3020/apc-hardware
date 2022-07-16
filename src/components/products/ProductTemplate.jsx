@@ -50,8 +50,10 @@ function ProductTemplate(props) {
     thumbnailImage: "",
     images: [],
     manufacturer: "",
+    shortDescription: "",
     description: "",
     discountStatus: false,
+    discountAmount: 0,
   };
 
   // components states
@@ -196,7 +198,7 @@ function ProductTemplate(props) {
       if (productDetails.thumbnailImage === url) {
         setProductDetails({ ...productDetails, thumbnailImage: "" });
       }
-      console.log(url);
+      // console.log(url);
 
       setProductDetails({
         ...productDetails,
@@ -319,8 +321,10 @@ function ProductTemplate(props) {
         thumbnailImage: product.thumbnailImage,
         images: product.images,
         manufacturer: product.manufacturer,
+        shortDescription: product.shortDescription,
         description: product.description,
         discountStatus: product.discountStatus,
+        discountAmount: product.discountAmount,
       };
 
       setProductDetails({ ...productDetails, ...fetchedProduct });
@@ -405,7 +409,41 @@ function ProductTemplate(props) {
             </Form.Group>
           </Row>
 
-          {/* ----------------------------------------------------------------modelo y faabricante------------------------------------------------------------------------ */}
+          {/* ----------------------------------------------------------------descuento------------------------------------------------------------------- */}
+          <Row className="mb-3">
+            <Form.Group as={Col} controlId="discountStatus">
+              <Form.Check
+                type="checkbox"
+                id="discountStatus"
+                label="Descuento"
+                checked={productDetails.discountStatus}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    discountStatus: e.target.checked,
+                  })
+                }
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="productPrice">
+              <Form.Label>Valor del Descuento</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.01"
+                placeholder="Precio"
+                value={productDetails.discountAmount}
+                onChange={(e) =>
+                  setProductDetails({
+                    ...productDetails,
+                    discountAmount: e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+          </Row>
+
+          {/* ----------------------------------------------------------------modelo y fabricante------------------------------------------------------------------------ */}
           <Row className="mb-3">
             <Form.Group as={Col} controlId="productModel">
               <Form.Label>Modelo</Form.Label>
@@ -457,7 +495,24 @@ function ProductTemplate(props) {
             />
             <div className="form-image">{previewImages}</div>
           </Form.Group>
-          {/* ----------------------------------------------------------------fabricante------------------------------------------------------------------- */}
+          {/* ----------------------------------------------------------------Descripcion Corta------------------------------------------------------------------- */}
+
+          <Form.Group className="mb-3" controlId="productshortDescription">
+            <Form.Label>Descripcion Corta</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={5}
+              placeholder="Descripcion corta.."
+              value={productDetails.shortDescription}
+              onChange={(e) =>
+                setProductDetails({
+                  ...productDetails,
+                  shortDescription: e.target.value,
+                })
+              }
+              required
+            />
+          </Form.Group>
 
           {/* ----------------------------------------------------------------descripcion------------------------------------------------------------------- */}
           <Form.Group className="mb-3" controlId="productDescription">
@@ -476,21 +531,7 @@ function ProductTemplate(props) {
               required
             />
           </Form.Group>
-          {/* ----------------------------------------------------------------descuento------------------------------------------------------------------- */}
-          <Form.Group className="mb-3" controlId="discountStatus">
-            <Form.Check
-              type="checkbox"
-              id="discountStatus"
-              label="Descuento"
-              checked={productDetails.discountStatus}
-              onChange={(e) =>
-                setProductDetails({
-                  ...productDetails,
-                  discountStatus: e.target.checked,
-                })
-              }
-            />
-          </Form.Group>
+
           {formButtons}
         </Form>
       </Container>

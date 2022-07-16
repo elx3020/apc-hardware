@@ -24,8 +24,10 @@ type Products
   thumbnailImage: String!
   images: [String]
   manufacturer: String!
+  shortDescription: String!
   description: String!
   discountStatus: Boolean!
+  discountAmount: Float
 }
 
 type News
