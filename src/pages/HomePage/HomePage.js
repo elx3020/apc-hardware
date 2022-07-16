@@ -8,7 +8,7 @@ import { getShortProducts } from "../../Redux/actions/dataActions";
 import HeroHomePage from "../../components/PageSection/HeroHomePage/HeroHomePage";
 import HomeCalculatorComponent from "../../components/PageSection/CalculatorComponent/HomeCalculatorComponent";
 import ProductCardContainer from "../../components/PageSection/Products/ProductCardContainer";
-
+import GoToTop from "../../components/utils/GoToTop";
 import { Container } from "react-bootstrap";
 
 export const HomePage = (props) => {
@@ -49,6 +49,7 @@ export const HomePage = (props) => {
         nItems={4}
         loading={loading}
       />
+      <GoToTop />
     </Container>
   );
 

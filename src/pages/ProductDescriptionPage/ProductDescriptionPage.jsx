@@ -18,6 +18,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import RatingElement from "../../components/PageSection/Products/RatingElement";
 import ProductDescripionImages from "../../components/products/ProductDescriptionImages";
+import GoToTop from "../../components/utils/GoToTop";
 import "./style.scss";
 
 export const ProductDescriptionPage = (props) => {
@@ -187,6 +188,7 @@ export const ProductDescriptionPage = (props) => {
       </section> */}
         </Container>
       </article>
+      <GoToTop />
     </div>
   );
 

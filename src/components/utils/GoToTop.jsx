@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 export default function GoToTop() {
   const routePath = useLocation();
   const onTop = () => {
-    console.log(routePath);
+    // console.log(routePath);
     window.scrollTo(0, 0);
   };
   useEffect(() => {
