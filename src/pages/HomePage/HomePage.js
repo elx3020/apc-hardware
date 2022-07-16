@@ -30,7 +30,7 @@ export const HomePage = (props) => {
       <HomeCalculatorComponent />
       <ProductCardContainer
         category="componentes"
-        titleCategory="Componentes"
+        titleCategory="Componentes para PC"
         data={products}
         nItems={3}
         loading={loading}
@@ -43,8 +43,8 @@ export const HomePage = (props) => {
         loading={loading}
       />
       <ProductCardContainer
-        category="procesadores"
-        titleCategory="Procesadores"
+        category="ventiladores"
+        titleCategory="Ventiladores y Disipadores"
         data={products}
         nItems={4}
         loading={loading}

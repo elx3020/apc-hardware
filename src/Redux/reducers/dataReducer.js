@@ -7,6 +7,7 @@ import {
   GET_NEWS,
   GET_PRODUCTS_INVENTORY,
   DELETE_PRODUCT_INVENTORY,
+  GET_SUGGESTED_PRODUCTS,
 } from "../types";
 
 // initial state in production should only show the structure of the data
@@ -17,6 +18,7 @@ const initialState = {
   listProductsInventory: [],
   news: [],
   productDescription: {},
+  suggestedProducts: [],
   comments: [],
   nextToken: "",
   loading: false,
@@ -35,6 +37,12 @@ export default function (state = initialState, action) {
         ...state,
         products: action.payload,
         loading: false,
+      };
+
+    case GET_SUGGESTED_PRODUCTS:
+      return {
+        ...state,
+        suggestedProducts: action.payload,
       };
     case GET_PRODUCTS_INVENTORY:
       return {

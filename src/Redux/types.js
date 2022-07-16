@@ -17,6 +17,7 @@ export const SHOW_IMAGES = "SHOW_IMAGES";
 // Data reducer types
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCT = "GET_PRODUCT";
+export const GET_SUGGESTED_PRODUCTS = "GET_SUGGESTED_PRODUCTS";
 export const SET_PRODUCT = "SET_PRODUCT";
 export const CLEAR_PRODUCT = "CLEAR_PRODUCT";
 export const GET_NEWS = "GET_NEWS";

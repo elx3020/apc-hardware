@@ -18,13 +18,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import RatingElement from "../../components/PageSection/Products/RatingElement";
 import ProductDescripionImages from "../../components/products/ProductDescriptionImages";
-
 import "./style.scss";
 
 export const ProductDescriptionPage = (props) => {
   const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
-  const { product, products, loading } = props;
+  const { product, suggestedProducts, loading } = props;
 
   const {
     name,
@@ -39,10 +38,6 @@ export const ProductDescriptionPage = (props) => {
 
   useEffect(() => {
     props.getProduct(productId);
-    // if (products.length < 1) {
-    //   console.log("find products");
-    //   props.getProductbyCategory(categories[0], productId);
-    // }
   }, []);
 
   const productImages = loading ? (
@@ -90,14 +85,16 @@ export const ProductDescriptionPage = (props) => {
                   />
                 </div>
                 <table>
-                  <tr>
-                    <th>Modelo:</th>
-                    <td>{model}</td>
-                  </tr>
-                  <tr>
-                    <th>Marca:</th>
-                    <td>{manufacturer}</td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>Modelo:</th>
+                      <td>{model}</td>
+                    </tr>
+                    <tr>
+                      <th>Marca:</th>
+                      <td>{manufacturer}</td>
+                    </tr>
+                  </tbody>
                 </table>
               </header>
               <div className="price-wrapper">
@@ -116,7 +113,8 @@ export const ProductDescriptionPage = (props) => {
                 <li>Aqui va la oracion 3 corta que describe el producto</li>
               </ul>
 
-              <InputGroup style={{ width: "60%" }}>
+              <InputGroup size="sm" style={{ width: "10rem" }}>
+                <InputGroup.Text>Cantidad:</InputGroup.Text>
                 <Button
                   variant="outline-secondary"
                   id="button-addon1"
@@ -134,7 +132,7 @@ export const ProductDescriptionPage = (props) => {
 
                 <FormControl
                   readOnly
-                  aria-label="cantidad de productos"
+                  aria-label="cantidad del producto"
                   value={quantity}
                 />
                 <Button
@@ -148,8 +146,18 @@ export const ProductDescriptionPage = (props) => {
                 >
                   +
                 </Button>
-                <Button>Añadir al Carrito</Button>
               </InputGroup>
+
+              <Button variant="success" size="sm" style={{ margin: "10px 0" }}>
+                Añadir al Carrito
+              </Button>
+              <p>
+                <b>Politicas de Envio:</b> <br /> Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Praesent nec sollicitudin enim.
+                Morbi varius sapien at vehicula sollicitudin. Ut ornare erat non
+                ex sodales, vel vulputate mauris lacinia. Aliquam sed elit
+                vehicula, sollicitudin mauris a, accumsan nulla.
+              </p>
             </div>
           </section>
 
@@ -182,13 +190,17 @@ export const ProductDescriptionPage = (props) => {
     </div>
   );
 
-  const pageContent = loading ? <div> Loading..</div> : loadedContent;
+  const pageContent = loading ? (
+    <div style={{ height: "100vh" }}> Loading..</div>
+  ) : (
+    loadedContent
+  );
   return pageContent;
 };
 
 const mapStateToProps = (state) => ({
   product: state.data.productDescription,
-  products: state.data.products,
+  suggestedProducts: state.data.suggestedProducts,
   loading: state.ui.loading,
 });
 

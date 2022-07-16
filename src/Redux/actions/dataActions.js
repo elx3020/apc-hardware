@@ -9,6 +9,7 @@ import {
   SET_NEW,
   GET_PRODUCTS_INVENTORY,
   DELETE_PRODUCT_INVENTORY,
+  GET_SUGGESTED_PRODUCTS,
 } from "../types.js";
 
 import { API, graphqlOperation } from "aws-amplify";
@@ -116,7 +117,11 @@ export const getProduct = (productID) => async (dispatch) => {
     });
 
     if (product) {
-      dispatch({ type: GET_PRODUCT, payload: product.data.getProducts });
+      const { getProducts } = product.data;
+
+      // const { categories } = getProducts;
+
+      dispatch({ type: GET_PRODUCT, payload: getProducts });
       dispatch({ type: SHOW_DATA });
     }
   } catch (err) {
@@ -164,7 +169,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
 
 export const getProductbyCategory =
   (productCategory, productId) => async (dispatch) => {
-    dispatch({ type: LOADING_PRODUCTS });
+    dispatch({ type: LOADING_UI });
     try {
       const productsByCategory = await API.graphql(
         graphqlOperation(listProducts, {
@@ -175,11 +180,12 @@ export const getProductbyCategory =
         })
       );
       if (productsByCategory) {
-        console.log(productsByCategory);
         dispatch({
-          type: GET_PRODUCTS,
+          type: GET_SUGGESTED_PRODUCTS,
           payload: productsByCategory.data.listProducts.items,
         });
+
+        dispatch({ type: SHOW_DATA });
       }
     } catch (err) {
       console.error(err);

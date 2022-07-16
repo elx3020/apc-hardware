@@ -7,7 +7,7 @@ export const pagesRoutes = {
   profile: "/profile/:user",
   orders: "/:user/orders",
   tickets: "/:user/tickets",
-  products: "/products/:productId",
+  products: "/productos/:productId",
   calculator: "/pc-calculator",
   deliveryPolicy: "/delivery-policy",
   privatePolicy: "/privacy-policy",

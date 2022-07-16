@@ -9,10 +9,9 @@ export const ProductDescriptionImages = (props) => {
 
   const imagesSmall = images?.map((image, index) => {
     return (
-      <div className="img-small-container">
+      <div key={index} className="img-small-container">
         <img
           id={index}
-          key={index}
           onMouseEnter={showLargeImage}
           src={image}
           alt={image.split("images/")[1]}
