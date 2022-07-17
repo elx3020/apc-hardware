@@ -11,7 +11,7 @@
   align-items: center;
   column-gap: 2vw;
   @media screen and(max-width: 450px) {
-    padding: 0%;
+    padding: 1%;
     height: 6vh;
   }
 
@@ -23,6 +23,10 @@
   .branding-img {
     max-width: 75px;
     cursor: pointer;
+
+    @media screen and(max-width: 450px) {
+      display: none;
+    }
   }
 
   .option-menu {
@@ -45,8 +49,9 @@
     align-items: center;
     justify-content: center;
     color: white;
-    width: 6vh;
-    height: 100%;
+
+    padding: 1%;
+
     @media screen and(max-width: 450px) {
       display: flex;
     }
@@ -65,23 +70,48 @@
     column-gap: 1vw;
     min-width: 700px;
     @media screen and(max-width: 450px) {
+      padding: 1vh 0;
       justify-content: flex-start;
+      align-items: center;
     }
   }
 }
 
 .navpanel-wrapper {
   display: none;
+  font-size: 1.2rem;
+
+  .nav-panel-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .img-logo-panel {
+      display: inline-block;
+      width: 70px;
+    }
+  }
+
+  .panel-links {
+    padding: 2vh 2vh;
+    list-style-type: none;
+    color: white;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
   @media screen and(max-width: 450px) {
     display: block;
-    width: 100%;
+    width: 70%;
     height: 100vh;
+    padding: 2vw;
     top: 0;
     color: white;
     position: absolute;
     background-color: $mainColorElements;
     z-index: 99;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.2s ease-in-out;
     &.close {
       transform: translateX(-100%);
     }

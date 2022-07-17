@@ -1,11 +1,32 @@
-.home-category {
+// ------------------------------------------- product card container -------------------------------------------------------------
+
+.category-list-wrapper {
   padding: 1.5vw 0;
+
+  h2 {
+    margin-bottom: 20px;
+  }
 }
 
-.card-list-wrapper {
+.product-list-wrapper {
   display: flex;
-  align-items: center;
-  column-gap: 2vw;
+  width: 100%;
+  overflow-x: scroll;
+  column-gap: 30px;
+
+  .card {
+    max-width: 270px;
+    border: none;
+    .card-img-top {
+      height: 220px;
+    }
+    @media screen and(max-width: 450px ) {
+      .card-img-top {
+        height: 100%;
+      }
+      min-width: 100%;
+    }
+  }
 }
 
 // --------------------------------------------------- CardList style ---------------------------------------------------------------------

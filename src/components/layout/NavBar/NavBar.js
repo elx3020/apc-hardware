@@ -1,9 +1,7 @@
 import { Link, useHistory } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
@@ -14,6 +12,12 @@ import Row from "react-bootstrap/Row";
 import "./style.scss";
 import logoImage from "../../../images/icons/apc_logo_nav.png";
 import { Dropdown } from "react-bootstrap";
+// icons
+import {
+  searchIcon,
+  menuBarsIcon,
+  crossIcon,
+} from "../../../images/svg/svgIcons";
 
 const NavBar = (props) => {
   // state
@@ -61,7 +65,7 @@ const NavBar = (props) => {
         onChange={handleChange}
       ></FormControl>
       <Button variant="outline-success" type="submit">
-        Buscar
+        <span> {searchIcon}</span>
       </Button>
     </Form>
   );
@@ -69,16 +73,32 @@ const NavBar = (props) => {
   const navPanel = (
     <div className={`navpanel-wrapper ${navPanelState}`}>
       <div className="navpanel-content">
-        <div>
-          <span onClick={toggleNavPanel}>X</span>
+        <div className="nav-panel-top">
+          <span onClick={toggleNavPanel}>{menuBarsIcon}</span>
+
+          <p>APC-EC Hardware</p>
         </div>
-        <ul>
-          <li>Hello</li>
-          <li>Hello</li>
-          <li>Hello</li>
-          <li>Hello</li>
-          <li>Hello</li>
-          <li>Hello</li>
+        <ul className="panel-links">
+          <li>
+            <Link to="/">Inicio</Link>
+          </li>
+          <li>
+            <Link to={cart}>Carrito</Link>
+          </li>
+          <li>
+            <Link to={login}>Iniciar Sesion</Link>
+          </li>
+          <li>
+            {" "}
+            <NavDropdown menuVariant="dark" title="Categorias">
+              <NavDropdown.Item as={Link} to="#">
+                Computadoras
+              </NavDropdown.Item>
+              <NavDropdown.Item>Ventiladores</NavDropdown.Item>
+              <NavDropdown.Item>Memorias Ram</NavDropdown.Item>
+              <NavDropdown.Item>Tarjetas Madres</NavDropdown.Item>
+            </NavDropdown>
+          </li>
         </ul>
       </div>
     </div>
@@ -96,14 +116,14 @@ const NavBar = (props) => {
         >
           <img src={logoImage} alt="" />
         </div>
+        <div className="mobile-nav-button" onClick={toggleNavPanel}>
+          <span>{menuBarsIcon}</span>
+        </div>
         {searchBar}
         <div className="option-menu">
           <Link to={login}>Iniciar Sesion</Link>
           <Link to={contact}>Contacto</Link>
           <Link to={cart}>Carrito</Link>
-        </div>
-        <div className="mobile-nav-button" onClick={toggleNavPanel}>
-          M
         </div>
       </div>
       <div className="categories-row">
@@ -131,6 +151,9 @@ const NavBar = (props) => {
         >
           <img src={logoImage} alt="" />
         </div>
+        <div className="mobile-nav-button" onClick={toggleNavPanel}>
+          <span>{menuBarsIcon}</span>
+        </div>
         {searchBar}
         <div className="option-menu">
           <NavDropdown menuVariant="dark" title="Usuario">
@@ -141,9 +164,6 @@ const NavBar = (props) => {
           </NavDropdown>
           <Link to={contact}>Contacto</Link>
           <Link to={cart}>Carrito</Link>
-        </div>
-        <div className="mobile-nav-button" onClick={toggleNavPanel}>
-          M
         </div>
       </div>
       <div className="categories-row">

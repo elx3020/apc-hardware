@@ -3,7 +3,7 @@
 
 .footer-container {
   background-color: $mainColorElements;
-  padding-top: 2vw;
+  padding: 2vw 0 0 0;
   width: 100%;
   overflow: hidden;
   color: $quaternaryColor;
@@ -11,6 +11,16 @@
     color: $quaternaryColor;
   }
   p {
+    padding: 0.5rem 0;
     text-align: center;
+  }
+
+  .col {
+    @media screen and(max-width: 450px) {
+      padding: 2vw 0;
+      flex: none;
+      width: 100%;
+      padding: 1vh 2vw;
+    }
   }
 }

@@ -41,12 +41,12 @@ export const ProductCardContainer = (props) => {
   const componentContent = loading ? (
     <div>Loading...</div>
   ) : (
-    <CardGroup style={{ columnGap: "10px" }}>{products}</CardGroup>
+    <div className="product-list-wrapper">{products}</div>
   );
 
   return (
-    <div className="home-category">
-      <h2 style={{ marginBottom: "2%" }}>{titleCategory}</h2>
+    <div className="category-list-wrapper">
+      <h2>{titleCategory}</h2>
       {componentContent}
     </div>
   );

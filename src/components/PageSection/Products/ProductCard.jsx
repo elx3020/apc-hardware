@@ -16,26 +16,11 @@ export const ProductCard = (props) => {
 
   return (
     <Card
-      style={{
-        maxWidth: "14vw",
-        border: "none",
-      }}
-      // onClick={handleClick}
+
+    // onClick={handleClick}
     >
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-        }}
-      >
-        <Card.Img
-          style={{ height: "210px" }}
-          src={image}
-          alt={image}
-          variant="top"
-        />
+      <div>
+        <Card.Img src={image} alt={image} variant="top" />
       </div>
 
       <Card.Body style={{ padding: "3%" }}>
@@ -48,7 +33,7 @@ export const ProductCard = (props) => {
 
         <span>
           <Link
-            to={`/productos/${id}`}
+            to={`/products/${id}`}
             style={{
               fontSize: "16px",
               lineHeight: "110%",

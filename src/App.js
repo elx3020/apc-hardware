@@ -7,6 +7,7 @@ import NavBar from "./components/layout/NavBar/NavBar";
 import Footer from "./components/layout/Footer/Footer";
 import AuthRoute from "./components/UserControl/AuthRoute";
 import RequiredAuth from "./components/UserControl/RequiredAuth";
+import GoToTop from "./components/utils/GoToTop";
 // pages
 import HomePage from "./pages/HomePage/HomePage";
 import SearchResultPage from "./pages/SearchResultPage/SearchResultPage";
@@ -150,6 +151,7 @@ function App() {
             </Route>
           </Switch>
           <Footer />
+          <GoToTop />
         </Router>
       </Provider>
     </div>

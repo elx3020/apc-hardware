@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import GoToTop from "../../components/utils/GoToTop";
 
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
@@ -89,7 +88,6 @@ function AdminPage() {
           </Card>
         </Col>
       </Row>
-      <GoToTop />
     </Container>
   );
 }

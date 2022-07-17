@@ -8,7 +8,6 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
-import GoToTop from "../../components/utils/GoToTop";
 
 // react hooks
 import { useState, useEffect } from "react";
@@ -222,7 +221,6 @@ export const InventarioPage = (props) => {
       >
         {inventoryItems}
       </div>
-      <GoToTop />
     </Container>
   );
 
