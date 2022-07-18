@@ -33,7 +33,7 @@ export const ProductCard = (props) => {
 
         <span>
           <Link
-            to={`/products/${id}`}
+            to={`/productos/${id}`}
             style={{
               fontSize: "16px",
               lineHeight: "110%",
